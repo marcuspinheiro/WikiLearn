@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
 		
 		try {
 			
-			
+			//comeca o login
 			
 			String email = request.getParameter("email");
 			String senha = request.getParameter("password");
