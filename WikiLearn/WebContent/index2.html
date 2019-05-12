@@ -1,5 +1,3 @@
-<%@ page language="java" import="bd.BD,bd.core.*,bd.daos.*, bd.dbos.*"
-	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="pt">
 <head>
@@ -18,27 +16,11 @@
 <title>WIKI</title>
 </head>
 <body>
-	<!--DETECTA USUARIO LOGADO-->
-	<%
-		Usuario user = (Usuario) session.getAttribute("usuario");
-		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
-		MeuResultSet tema = BD.TEMAS.getTemas();
-
-		Usuario user_next = new Usuario(user.getEmail());
-		HttpSession session_next = request.getSession();
-		session.setAttribute("usuario", user);
-	%>
-
-
-
-
-	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
 		<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">WikiLearn</a>
+			<a class="navbar-brand" href="#">WikiLearn2</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -51,31 +33,14 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <%
- 	while (resultado.next()) {
- %> <%=resultado.getString("NICK")%> <%
- 	}
- %>
-					</a>
+						aria-expanded="false"> Entrar </a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="login.html">Meu Perfil</a>
+							<a class="dropdown-item" href="login.html">Login</a>
 							<section class="dropdown-divider"></section>
-							<a class="dropdown-item" href="#">Upgrade de conta</a>
+							<a class="dropdown-item" href="cadastro_user.html">Cadastrar</a>
 							<section class="dropdown-sectionider"></section>
-							<a class="dropdown-item" href="index.html">Sair</a>
+							<a class="dropdown-item" href="#">Upgrade conta</a>
 						</section></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Materiais </a>
-						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<%
-					 	while (tema.next()) {
-					 		%><a class="dropdown-item" href="#"><% 
-					 %> <%=tema.getString("TEMA")%> 
-					 </a><% }
-					 %>
-							<section class="dropdown-sectionider"></section></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Conta
 							Premium <span class="sr-only">(current)</span>
 					</a></li>
@@ -86,15 +51,7 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
-					</a></li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search"
-						placeholder="Buscar C�digo" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-				</form>
 			</section>
 		</nav>
 
@@ -175,6 +132,59 @@
 		</section>
 
 	</section>
+
+	<footer class="container py-5">
+		<section class="row">
+			<section class="col-12 col-md">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+					fill="none" stroke="currentColor" stroke-linecap="round"
+					stroke-linejoin="round" stroke-width="2" class="d-block mb-2"
+					role="img" viewBox="0 0 24 24" focusable="false">
+					<title>Product</title><circle cx="12" cy="12" r="10" />
+					<path
+						d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94" /></svg>
+				<small class="d-block mb-3 text-muted">&copy; WikiLearn</small>
+			</section>
+			<section class="col-6 col-md">
+				<h5>Novidades</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Novos conteudos</a></li>
+					<li><a class="text-muted" href="#"></a></li>
+					<li><a class="text-muted" href="#">Team feature</a></li>
+					<li><a class="text-muted" href="#">Stuff for developers</a></li>
+					<li><a class="text-muted" href="#">Another one</a></li>
+					<li><a class="text-muted" href="#">Last time</a></li>
+				</ul>
+			</section>
+			<section class="col-6 col-md">
+				<h5>Resources</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Resource</a></li>
+					<li><a class="text-muted" href="#">Resource name</a></li>
+					<li><a class="text-muted" href="#">Another resource</a></li>
+					<li><a class="text-muted" href="#">Final resource</a></li>
+				</ul>
+			</section>
+			<section class="col-6 col-md">
+				<h5>Resources</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Business</a></li>
+					<li><a class="text-muted" href="#">Education</a></li>
+					<li><a class="text-muted" href="#">Government</a></li>
+					<li><a class="text-muted" href="#">Gaming</a></li>
+				</ul>
+			</section>
+			<section class="col-6 col-md">
+				<h5>Sobre</h5>
+				<ul class="list-unstyled text-small">
+					<li><a class="text-muted" href="#">Equipe desenvolvedora</a></li>
+					<li><a class="text-muted" href="#">Localização</a></li>
+					<li><a class="text-muted" href="#">Termos legais</a></li>
+				</ul>
+			</section>
+		</section>
+	</footer>
+
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

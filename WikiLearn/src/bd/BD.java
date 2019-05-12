@@ -7,13 +7,14 @@ public class BD
 {
     public static final MeuPreparedStatement COMANDO;
     public static final Usuarios USUARIOS; //um como esse para cada classe DAO
+     public static final Temas TEMAS;
 
 
     static
     {
     	MeuPreparedStatement comando = null;
      	Usuarios usuarios  = null; //um como esse para cada classe DAO
-
+     	Temas temas = null;
 
     	try
         {
@@ -34,7 +35,7 @@ public class BD
     		
     		
             usuarios = new Usuarios (); //um como esse para cada classe DAO
-
+            temas = new Temas ();
         }
         catch (Exception erro)
         {
@@ -44,6 +45,6 @@ public class BD
         
         COMANDO = comando;
         USUARIOS  = usuarios; //um como esse para cada classe DAO
-
+        TEMAS = temas;
     }
 }

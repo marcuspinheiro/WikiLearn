@@ -22,8 +22,6 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
-		MeuResultSet tema = BD.TEMAS.getTemas();
 
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -64,18 +62,6 @@
 							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="index.html">Sair</a>
 						</section></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Materiais </a>
-						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<%
-					 	while (tema.next()) {
-					 		%><a class="dropdown-item" href="#"><% 
-					 %> <%=tema.getString("TEMA")%> 
-					 </a><% }
-					 %>
-							<section class="dropdown-sectionider"></section></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Conta
 							Premium <span class="sr-only">(current)</span>
 					</a></li>
@@ -86,8 +72,8 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link" href="#">Upload
+							<span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
@@ -99,80 +85,43 @@
 		</nav>
 
 
-		<!-- Carousel -->
-		<section id="carouselExampleControls" class="carousel slide my-4"
-			data-ride="carousel">
-			<section class="carousel-inner">
-				<section class="carousel-item active">
-					<img class="d-block img-fluid"
-						src="img/imagem1.jpg" alt="first_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem2.jpg" alt="second_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem3.jpg" alt="third_slide">
+			<!-- Upload file -->
+			
+	<section class="col-md-8 order-md-1">
+		<h4 class="mb-3">Formuário para cadastro de usuário</h4>
+		<form class="needs-validation" method="get" action="uploadFile"
+			novalidate>
+			<section class="row">
+				<section class="col-md-6 mb-3">
+					<label for="titulo">Titulo</label> <input type="text"
+						class="form-control" id="titulo" name="titulo"
+						placeholder="" value="" required>
+					<section class="invalid-feedback">Por favor entre com o titulo da publicação.</section>
 				</section>
 			</section>
-			<a class="carousel-control-prev" href="#carouselExampleControls"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleControls"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
-		</section>
 
-		<!-- Cards -->
-
-		<section class="row">
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
+			<section class="mb-3">
+				<label for="file">Arquivo</label>
+				<section class="input-group">
+					<section class="input-group-prepend">
+						<span class="input-group-text">#</span>
 					</section>
+					<input type="file" class="form-control" id="file"
+						name="file" placeholder="Escolha.." required>
+					<section class="invalid-feedback" style="width: 100%;">
+						arquivo</section>
 				</section>
-
 			</section>
-			<section class="col">
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
 
-			</section>
-			<section class="col">
+			<hr class="mb-4">
+			<button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+		</form>
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
 
-			</section>
-		</section>
+
+		<script src="valida_login.js"></script>
+	</section>
 
 	</section>
 
