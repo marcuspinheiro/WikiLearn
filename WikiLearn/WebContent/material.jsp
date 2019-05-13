@@ -24,7 +24,12 @@
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		
 		MeuResultSet tema = BD.TEMAS.getTemas();
-
+		
+		String material = request.getParameter("material");
+		
+		MeuResultSet tema_escolhido = BD.TEMAS.getTemas(material); 
+		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoes();
+		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
@@ -38,7 +43,7 @@
 	<section class="container-fluid">
 		<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">WikiLearn34</a>
+			<a class="navbar-brand" href="#">WikiLearn2</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -47,21 +52,19 @@
 			</button>
 
 			<section class="collapse navbar-collapse" id="navbarSupportedContent">
-			
 				<ul class="navbar-nav mr-auto">
-					 <%
- 	while (resultado.next()) {%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-  <%=resultado.getString("NICK")%><% 
+						aria-expanded="false"> <%
+ 	while (resultado.next()) {
+ %> <%=resultado.getString("NICK")%> <%
  	}
  %>
 					</a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="login.html">Meu Perfil</a>
-							<section class="dropdown-divider"></section>
+							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="#">Upgrade de conta</a>
 							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="index.html">Sair</a>
@@ -73,12 +76,13 @@
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<%
 					 	while (tema.next()) {
-					 		%><a class="dropdown-item" name="material" href="#"><% 
+					 		%><a class="dropdown-item" href="#"><% 
 					 %> <%=tema.getString("TEMA")%> 
 					 </a><% }
 					 %>
 							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link" href="#">Conta
+							Premium <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
@@ -91,90 +95,81 @@
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
-	
-				<form class="form-inline my-2 my-lg-0" method="get" action= "material.jsp">
+				<form class="form-inline my-2 my-lg-0">
 					<input class="form-control mr-sm-2" type="search"
-						placeholder="Buscar Tema" aria-label="Search" name="material">
+						placeholder="Buscar Código" aria-label="Search">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
 				</form>
 			</section>
 		</nav>
 
 
-		<!-- Carousel -->
-		<section id="carouselExampleControls" class="carousel slide my-4"
-			data-ride="carousel">
-			<section class="carousel-inner">
-				<section class="carousel-item active">
-					<img class="d-block img-fluid"
-						src="img/imagem1.jpg" alt="first_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem2.jpg" alt="second_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem3.jpg" alt="third_slide">
-				</section>
-			</section>
-			<a class="carousel-control-prev" href="#carouselExampleControls"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleControls"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
-		</section>
+<h1 class="text-center">Trend Topics <%
+ 	while (tema_escolhido.next()) {
+ %> <%=tema_escolhido.getString("TEMA")%> <%
+ 	}
+ %></h1>
+ 
+ 
+ 
+ 
+ <section class="album py-5 bg-light">
+    <section class="container">
+      <section class="row">
+      
 
-		<!-- Cards -->
 
-		<section class="row">
-			<section class="col">
+<%
+ 	while (tema_pagina.next()) {
+ %>
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
+        <section class="col-md-4">
+          <section class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><%=tema_pagina.getString("TITULO")%></text></svg>
+            <section class="card-body">
+              
+              <form class="publicacao" method="get" action = "publicacao.jsp">
+              
+	              <p class="card-text"><%=tema_pagina.getString("DESCRICAO")%>.</p>
+	              <section class="d-flex justify-content-between align-items-center">
+	                <section class="btn-group">
+	                </section>
+	                
+	              </section>
+	              <section>
+	              	<br/>
+	              	<label>Código: </label><input type="text" name="codigo" id = "codigo" value="<%=tema_pagina.getString("ID")%>" readonly="true">
+	              	<br/>
+	             	 <input type="submit" value="Ver publicação"> <small class="text-muted">Data: 9 mins</small>
+	              </section>
+              
+               </form>
+              
+                           
+            </section>
+          </section>
+        </section>
+              
+            <%
+ 	}
+ %>   
+              
+              
+              
+              
 
-			</section>
-			<section class="col">
+        
+        
+        
+        
+      </section>
+    </section>
+  </section>
+ 
+ 
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-		</section>
+ 
+ 
 
 	</section>
 

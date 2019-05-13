@@ -22,7 +22,7 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
+		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		MeuResultSet tema = BD.TEMAS.getTemas();
 
 		Usuario user_next = new Usuario(user.getEmail());
@@ -78,7 +78,8 @@
 					 </a><% }
 					 %>
 							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link" href="#">Conta
+							Premium <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
@@ -101,80 +102,59 @@
 		</nav>
 
 
-		<!-- Carousel -->
-		<section id="carouselExampleControls" class="carousel slide my-4"
-			data-ride="carousel">
-			<section class="carousel-inner">
-				<section class="carousel-item active">
-					<img class="d-block img-fluid"
-						src="img/imagem1.jpg" alt="first_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem2.jpg" alt="second_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem3.jpg" alt="third_slide">
+
+
+
+
+	<section class="col-md-8 order-md-1">
+		<h4 class="mb-3">Formuário para sugestão de tema</h4>
+		<form class="needs-validation" method="get" action="obrigado_sugestao.jsp"
+			novalidate>
+			<section class="row">
+				<section class="col-md-6 mb-3">
+					<label for="firstName">Nome do usuario</label> <input type="text"
+						class="form-control" id="nick" name="nick"
+						placeholder="" value="<%
+ 	while (resultado2.next()) {%> <%=resultado2.getString("NICK")%><% 
+ 	}
+ %>" required readonly>
+					<section class="invalid-feedback">Por favor entre com o
+						seu primeiro nome.</section>
 				</section>
 			</section>
-			<a class="carousel-control-prev" href="#carouselExampleControls"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleControls"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
-		</section>
 
-		<!-- Cards -->
-
-		<section class="row">
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
+			<section class="mb-3">
+				<label for="username">Tema</label>
+				<section class="input-group">
+					<section class="input-group-prepend">
+						<span class="input-group-text">#</span>
 					</section>
+					<input type="text" class="form-control" id="tema"
+						name="tema" placeholder="Tema sugestão" required>
+					<section class="invalid-feedback" style="width: 100%;">
+						Tema obrigatório</section>
 				</section>
-
 			</section>
-			<section class="col">
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
+			<section class="mb-3">
+				<label for="email">Descrição <span class="text-muted">(Obrigatório)</span></label>
+				<input type="text" class="form-control" id="descricao" name="descricao"
+					placeholder="Descriçao" required>
+				<section class="invalid-feedback">Por favor entre com uma descricao</section>
 			</section>
-			<section class="col">
+			
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
+			<hr class="mb-4">
+			<button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+		</form>
 
-			</section>
-		</section>
+
+
+		<script src="valida_login.js"></script>
+	</section>
+
+
+
 
 	</section>
 

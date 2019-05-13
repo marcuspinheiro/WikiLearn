@@ -41,5 +41,35 @@ public class Temas {
 
         return resultado;
     }
+    
+    
+    
+    public MeuResultSet getTemas (String tema) throws Exception
+    {
+        MeuResultSet resultado = null;
+
+       
+        
+        try
+        {
+            String sql;
+
+            sql = "SELECT TEMA " +
+                  "FROM TEMA "+
+            		"WHERE TEMA = '"+ tema +"'";
+           
+            this.log.printSql(sql);
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao listar temas");
+        }
+
+        return resultado;
+    }
 	
 }

@@ -24,7 +24,17 @@
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		
 		MeuResultSet tema = BD.TEMAS.getTemas();
-
+		
+		String codigo = request.getParameter("codigo");
+		
+		MeuResultSet publicacao = BD.MATERIAIS.getPublicacao(codigo);
+		MeuResultSet publicacao_data = BD.MATERIAIS.getPublicacao_data(codigo);
+		MeuResultSet publicacao_descricao = BD.MATERIAIS.getPublicacao_descricao(codigo);
+		MeuResultSet publicacao_avaliacao = BD.MATERIAIS.getPublicacao_avaliacao(codigo);
+		MeuResultSet publicacao_autor = BD.MATERIAIS.getPublicacao_autor(codigo);
+		MeuResultSet publicacao_tema = BD.MATERIAIS.getPublicacao_tema(codigo);
+		
+		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
@@ -78,7 +88,8 @@
 					 </a><% }
 					 %>
 							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link" href="#">Conta
+							Premium <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
@@ -101,81 +112,40 @@
 		</nav>
 
 
-		<!-- Carousel -->
-		<section id="carouselExampleControls" class="carousel slide my-4"
-			data-ride="carousel">
-			<section class="carousel-inner">
-				<section class="carousel-item active">
-					<img class="d-block img-fluid"
-						src="img/imagem1.jpg" alt="first_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem2.jpg" alt="second_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem3.jpg" alt="third_slide">
-				</section>
-			</section>
-			<a class="carousel-control-prev" href="#carouselExampleControls"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleControls"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
-		</section>
 
-		<!-- Cards -->
+<h1 class="text-center"><%
+ 	while (publicacao.next()) {
+ %> <%=publicacao.getString("TITULO")%> <%
+ 	}
+ %></h1>
 
-		<section class="row">
-			<section class="col">
 
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-		</section>
-
+<h3>Autor: <%
+ 	while (publicacao_autor.next()) {
+ %> <%=publicacao_autor.getString("NICK")%> <%
+ 	}
+ %></h3>
+<h4>Descrição:<%
+ 	while (publicacao_descricao.next()) {
+ %> <%=publicacao_descricao.getString("DESCRICAO")%> <%
+ 	}
+ %></h4>
+<h4>Data:<%
+ 	while (publicacao_data.next()) {
+ %> <%=publicacao_data.getString("DATA_PUBLICACAO")%> <%
+ 	}
+ %> </h4>
+<h4>Tema: <%
+ 	while (publicacao_tema.next()) {
+ %> <%=publicacao_tema.getString("TEMA")%> <%
+ 	}
+ %></h4>
+<h4>Arquivo: </h4>
+<h4>Avaliação:<%
+ 	while (publicacao_avaliacao.next()) {
+ %> <%=publicacao_avaliacao.getString("NOTA")%> <%
+ 	}
+ %> </h4>
 	</section>
 
 	<!-- Optional JavaScript -->
