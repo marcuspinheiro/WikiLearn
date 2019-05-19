@@ -44,9 +44,9 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-		<!-- Menu -->
+				<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">WikiLearn34</a>
+			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -107,7 +107,6 @@
 				</form>
 			</section>
 		</nav>
-
 
 <h4 class="text-center">Obrigado por nos ajudar!</h4>
 

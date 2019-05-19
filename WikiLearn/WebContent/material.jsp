@@ -28,7 +28,7 @@
 		String material = request.getParameter("material");
 		
 		MeuResultSet tema_escolhido = BD.TEMAS.getTemas(material); 
-		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoes();
+		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoes(material);
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -42,8 +42,9 @@
 
 	<section class="container-fluid">
 		<!-- Menu -->
+			
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">WikiLearn2</a>
+			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -52,19 +53,21 @@
 			</button>
 
 			<section class="collapse navbar-collapse" id="navbarSupportedContent">
+			
 				<ul class="navbar-nav mr-auto">
+					 <%
+ 	while (resultado.next()) {%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <%
- 	while (resultado.next()) {
- %> <%=resultado.getString("NICK")%> <%
+						aria-expanded="false">
+  <%=resultado.getString("NICK")%><% 
  	}
  %>
 					</a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="login.html">Meu Perfil</a>
-							<section class="dropdown-sectionider"></section>
+							<section class="dropdown-divider"></section>
 							<a class="dropdown-item" href="#">Upgrade de conta</a>
 							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="index.html">Sair</a>
@@ -76,13 +79,12 @@
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<%
 					 	while (tema.next()) {
-					 		%><a class="dropdown-item" href="#"><% 
+					 		%><a class="dropdown-item" name="material" href="#"><% 
 					 %> <%=tema.getString("TEMA")%> 
 					 </a><% }
 					 %>
 							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="#">Conta
-							Premium <span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
@@ -95,9 +97,10 @@
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
+	
+				<form class="form-inline my-2 my-lg-0" method="get" action= "material.jsp">
 					<input class="form-control mr-sm-2" type="search"
-						placeholder="Buscar Código" aria-label="Search">
+						placeholder="Buscar Tema" aria-label="Search" name="material">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
 				</form>
 			</section>

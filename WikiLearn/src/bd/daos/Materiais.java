@@ -6,6 +6,7 @@ import bd.*;
 import bd.core.*;
 import bd.dbos.*;
 import log.Log;
+import java.io.InputStream;
 
 
 public class Materiais {
@@ -196,7 +197,44 @@ public class Materiais {
     }
     
     
-    public MeuResultSet getPublicacoes () throws Exception
+	 public void incluir (InputStream inputStream, String nome) throws Exception
+	    {
+	        
+
+	        try
+	        {
+			
+
+	            String sql;
+
+	            sql = "INSERT INTO MATERIAL " +
+	                  "(FILE_BYTE, TITULO) " +
+	                  "VALUES " +
+	                  "(?,?)";
+	            
+	            
+	            this.log.printSql(sql);
+
+	            BD.COMANDO.prepareStatement (sql);
+
+	            BD.COMANDO.setBlob (1, inputStream);
+	            BD.COMANDO.setString (2, nome);
+
+
+				
+
+	            BD.COMANDO.executeUpdate ();
+	            BD.COMANDO.commit        ();
+	            
+	            
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao inserir usuario");
+	        }
+	    }
+    
+    public MeuResultSet getPublicacoes (String tema) throws Exception
     {
         MeuResultSet resultado = null;
 
@@ -204,7 +242,10 @@ public class Materiais {
         {
             String sql;
 
-            sql = "SELECT TITULO, DESCRICAO, ID  FROM MATERIAl";
+            sql = "SELECT MATERIAL.TITULO, MATERIAL.DESCRICAO, MATERIAL.ID  FROM MATERIAl "+
+            	  "INNER JOIN TEMA ON TEMA.ID = MATERIAL.TEMA_ID " +
+            	  "WHERE TEMA.TEMA = '"+ tema +"'";
+            		
             
             this.log.printSql(sql);
 
@@ -215,6 +256,32 @@ public class Materiais {
         catch (SQLException erro)
         {
             throw new Exception ("Erro ao recuperar usuario");
+        }
+
+        return resultado;
+    }
+    
+    
+    public MeuResultSet getFile () throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT TITULO, FILE_BYTE  " +
+                  "FROM MATERIAL " ;
+            
+            this.log.printSql(sql);
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar arquivo");
         }
 
         return resultado;
