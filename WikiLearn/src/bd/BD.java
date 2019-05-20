@@ -12,7 +12,7 @@ public class BD
     public static final Sugestoes SUGESTOES;
     public static final PostagemDAO POSTAGENS;
     
-
+//socorro
 
     static
     {
