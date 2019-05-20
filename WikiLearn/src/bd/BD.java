@@ -10,6 +10,8 @@ public class BD
     public static final Temas TEMAS;
     public static final Materiais MATERIAIS; 
     public static final Sugestoes SUGESTOES;
+    public static final PostagemDAO POSTAGENS;
+    
 
 
     static
@@ -19,6 +21,7 @@ public class BD
      	Temas temas = null;
      	Materiais materiais = null;
      	Sugestoes sugestoes = null;
+     	PostagemDAO postagens = null;
 
     	try
         {
@@ -42,11 +45,12 @@ public class BD
             temas = new Temas ();
             materiais = new Materiais();
             sugestoes = new Sugestoes();
+            postagens = new PostagemDAO();
             
         }
         catch (Exception erro)
         {
-            System.err.println ("Problemas de conexao com o BD");
+            System.err.println ("Problemas de conexao com o BD" + erro.getMessage());
             System.exit(0); // aborta o programa
         }
         
@@ -55,5 +59,7 @@ public class BD
         TEMAS = temas;
         MATERIAIS = materiais; 
         SUGESTOES = sugestoes;
+        POSTAGENS = postagens;
+    
     }
 }
