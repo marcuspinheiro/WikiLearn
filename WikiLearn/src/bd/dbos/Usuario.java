@@ -24,6 +24,10 @@ public class Usuario {
 	
 	}
 	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNome() {
 		return nome;
 	}
