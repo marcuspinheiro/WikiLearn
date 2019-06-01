@@ -11,6 +11,8 @@ public class BD
     public static final Materiais MATERIAIS; 
     public static final Sugestoes SUGESTOES;
     public static final PostagemDAO POSTAGENS;
+    public static final ComentarioDAO COMENTARIOS;
+
     
 
 
@@ -22,6 +24,7 @@ public class BD
      	Materiais materiais = null;
      	Sugestoes sugestoes = null;
      	PostagemDAO postagens = null;
+     	ComentarioDAO comentarios = null;
 
     	try
         {
@@ -46,6 +49,7 @@ public class BD
             materiais = new Materiais();
             sugestoes = new Sugestoes();
             postagens = new PostagemDAO();
+            comentarios = new ComentarioDAO();
             
         }
         catch (Exception erro)
@@ -60,6 +64,7 @@ public class BD
         MATERIAIS = materiais; 
         SUGESTOES = sugestoes;
         POSTAGENS = postagens;
+        COMENTARIOS = comentarios;
     
     }
 }
