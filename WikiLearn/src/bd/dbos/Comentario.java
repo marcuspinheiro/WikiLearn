@@ -17,6 +17,7 @@ public class Comentario {
 	private Postagem postagem;
 	private Usuario dono;
 	private int idComentario;
+	private int idPostagem;
 
 	public Comentario() {
 		this.data = new Date();
@@ -86,5 +87,14 @@ public class Comentario {
 	public void setData(Date data) {
 		this.data = data;
 	}
+
+	public int getIdPostagem() {
+		return idPostagem;
+	}
+
+	public void setIdPostagem(int idPostagem) {
+		this.idPostagem = idPostagem;
+	}
+	
 
 }

@@ -22,14 +22,14 @@ public class ComentarioDAO {
 		try {
 			String query;
 
-			query = "INSERT INTO Comentario(comentario,datta,apelido,idPostagem) Values(?,?,?,?)";
+			query = "INSERT INTO Comentario(comentario,datta,fk_usuario,fk_postagem) Values(?,?,?,?)";
 			this.log.printSql(query);
 
 			BD.COMANDO.prepareStatement(query);
 			BD.COMANDO.setString(1, comentario.getComentario());
 			BD.COMANDO.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
-			BD.COMANDO.setString(3, comentario.getDono().getNome());
-			BD.COMANDO.setInt(4, comentario.getPostagem().getIdPostagem());
+			BD.COMANDO.setInt(3, comentario.getDono().getId());
+			BD.COMANDO.setInt(4, comentario.getIdPostagem());
 			BD.COMANDO.executeUpdate();
 			BD.COMANDO.commit();
 
@@ -48,11 +48,12 @@ public class ComentarioDAO {
 
 			String query;
 
-			query = "select idComentario, t1.apelido, comentario, t1.datta, t1.idPostagem "
+			query = "select t1.fk_usuario, comentario, t1.datta, t1.fk_postagem, nick "
 					+ "	from comentario t1 \n"
-					+ " inner join postagem t2 on (t1.idpostagem = t2.idpostagem)\n"
-					+ " where t1.idPostagem = ? "
-					+ "	order by t1.idpostagem desc;";
+					+ " inner join postagem t2 on (t1.fk_postagem = t2.id) "
+					+ " inner join usuario u on t1.fk_usuario = u.id"
+					+ " where t1.fk_postagem = ? "
+					+ "	order by t1.datta desc;";
 			this.log.printSql(query);
 
 			BD.COMANDO.prepareStatement(query);
@@ -64,10 +65,8 @@ public class ComentarioDAO {
 				Comentario objC = new Comentario();
 
 				Usuario objU = new Usuario();
-				objU.setNome(resultado.getString("apelido"));
-
+				objU.setNick(resultado.getString("nick"));;
 				objC.setDono(objU);
-				objC.setIdComentario(resultado.getInt("idComentario"));
 				objC.setComentario(resultado.getString("comentario"));
 				objC.setData(resultado.getTimestamp("datta"));
 				lista.add(objC);
