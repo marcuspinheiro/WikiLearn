@@ -22,14 +22,7 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
-		MeuResultSet tema = BD.TEMAS.getTemas();
-		
-		String material = request.getParameter("material");
-		
-		MeuResultSet tema_escolhido = BD.TEMAS.getTemas(material); 
-		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoes(material);
-		
+
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
@@ -42,7 +35,7 @@
 
 	<section class="container-fluid">
 		<!-- Menu -->
-			
+
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -53,15 +46,15 @@
 			</button>
 
 			<section class="collapse navbar-collapse" id="navbarSupportedContent">
-			
+
 				<ul class="navbar-nav mr-auto">
-					 <%
- 	while (resultado.next()) {%>
+					<%
+						while (resultado.next()) {
+					%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-  <%=resultado.getString("NICK")%><% 
+						aria-expanded="false"> <%=resultado.getString("NICK")%> <%
  	}
  %>
 					</a>
@@ -72,20 +65,6 @@
 							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="index.html">Sair</a>
 						</section></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Materiais </a>
-						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<%
-					 	while (tema.next()) {
-					 		%><a class="dropdown-item" name="material" href="#"><% 
-					 %> <%=tema.getString("TEMA")%> 
-					 </a><% }
-					 %>
-							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
-					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
 					</a></li>
@@ -97,84 +76,25 @@
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
-	
-				<form class="form-inline my-2 my-lg-0" method="get" action= "material.jsp">
+
+				<form class="form-inline my-2 my-lg-0" method="get"
+					action="material.jsp">
 					<input class="form-control mr-sm-2" type="search"
 						placeholder="Buscar Tema" aria-label="Search" name="material">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
 				</form>
 			</section>
 		</nav>
+ 		<form method="get" action="inserir_postagem.jsp">
+			<div class="form-group">
+				<label for="formGroupExampleInput">Tire sua dúvida:</label> <input
+					type="text" class="form-control" id="formGroupExampleInput" name = "duvida"
+					placeholder="Escreva sua dúvida..">
+					 <input class="btn btn-primary" type="submit" value="Submit">
+			</div>
+		</form>
 
-
-<h1 class="text-center">Trend Topics <%
- 	while (tema_escolhido.next()) {
- %> <%=tema_escolhido.getString("TEMA")%> <%
- 	}
- %></h1>
- 
- 
- 
- 
- <section class="album py-5 bg-light">
-    <section class="container">
-      <section class="row">
-      
-
-
-<%
- 	while (tema_pagina.next()) {
- %>
-
-        <section class="col-md-4">
-          <section class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><%=tema_pagina.getString("TITULO")%></text></svg>
-            <section class="card-body">
-              
-              <form class="publicacao" method="get" action = "publicacao.jsp">
-              
-	              <p class="card-text"><%=tema_pagina.getString("DESCRICAO")%>.</p>
-	              <section class="d-flex justify-content-between align-items-center">
-	                <section class="btn-group">
-	                </section>
-	                
-	              </section>
-	              <section>
-	              	<br/>
-	              	<label>Código: </label>
-	              	<input type="text" name="codigo" id = "codigo" value="<%=tema_pagina.getString("ID")%>" readonly="true">
-	              	<br/>
-	             	 <input type="submit" value="Ver publicação"> <small class="text-muted">Data: 9 mins</small>
-	              </section>
-              
-               </form>
-              
-                           
-            </section>
-          </section>
-        </section>
-              
-            <%
- 	}
- %>   
-              
-              
-              
-              
-
-        
-        
-        
-        
-      </section>
-    </section>
-  </section>
- 
- 
-
- 
- 
-
+		
 	</section>
 
 	<!-- Optional JavaScript -->

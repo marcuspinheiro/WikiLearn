@@ -20,21 +20,21 @@ public class PostagemDAO {
 
 			String query;
 
-			query = "INSERT INTO Postagem(datta,encerrada,pergunta) Values(?,?,?)";
+			query = "INSERT INTO Postagem(fk_usuario,datta,encerrada,pergunta) Values(?,?,?,?)";
 			BD.COMANDO.prepareStatement(query);
-			//BD.COMANDO.setString(1, postagem.getDono().getNome());
-			BD.COMANDO.setTimestamp(1, new Timestamp(postagem.getTime()));
-			BD.COMANDO.setBoolean(2, postagem.isEncerrado());
-			BD.COMANDO.setString(3, postagem.getPergunta());
+			BD.COMANDO.setInt(1, postagem.getDono().getId());
+			BD.COMANDO.setTimestamp(2, new Timestamp(postagem.getTime()));
+			BD.COMANDO.setBoolean(3, postagem.isEncerrado());
+			BD.COMANDO.setString(4, postagem.getPergunta());
 			BD.COMANDO.executeUpdate();
 			BD.COMANDO.commit();
 
 		} catch (SQLException erro) {
-			System.err.println("Erro ao inserir comentário" + erro.getMessage());
+			System.err.println("Erro ao inserir postagem" + erro.getMessage());
 		}
 	}
 
-	public static List<Postagem> listarPostagens(Usuario usuario) {
+	public List<Postagem> listarPostagens() {
 		List<Postagem> lista = new ArrayList<Postagem>();
 
 		MeuResultSet resultado = null;
@@ -42,26 +42,29 @@ public class PostagemDAO {
 		try {
 
 			String query;
-
-			query = "SELECT * FROM Postagem WHERE apelido = ? order by datta desc; ";
+			
+			query = "SELECT p.id as idPostagem, u.id as idUser, datta, pergunta, email, nick FROM Postagem p "
+				 + " inner join usuario u on p.fk_usuario = u.id"
+				 + " order by datta desc; ";
 			BD.COMANDO.prepareStatement(query);
-			BD.COMANDO.setString(1, usuario.getNome());
 
 			resultado = (MeuResultSet) BD.COMANDO.executeQuery();
 
 			while (resultado.next()) {
 				Postagem objP = new Postagem();
-
+				Usuario user = new Usuario();
 				objP.setIdPostagem(resultado.getInt("idPostagem"));
-				objP.setDono(usuario);
 				objP.setData(resultado.getTimestamp("datta"));
 				objP.setPergunta(resultado.getString("pergunta"));
-
+				user.setEmail(resultado.getString("email"));
+				user.setNick(resultado.getString("nick"));
+				user.setId(resultado.getInt("idUser"));
+				objP.setDono(user);
 				lista.add(objP);
 			}
 
 		} catch (SQLException erro) {
-			System.err.println("Erro ao inserir comentário" + erro.getMessage());
+			System.err.println("Erro ao listar postagens: " + erro.getMessage());
 
 		}
 		return lista;
@@ -77,7 +80,9 @@ public class PostagemDAO {
 
 			String query;
 
-			query = "SELECT * FROM Postagem WHERE idPostagem = ?";
+			query = "SELECT p.id as idPostagem, u.id as idUser, datta, pergunta, email, nick,encerrada FROM Postagem p "
+					 + " inner join usuario u on p.fk_usuario = u.id"
+					 + " where p.id= ?";
 			BD.COMANDO.prepareStatement(query);
 			BD.COMANDO.setInt(1, id);
 
@@ -86,21 +91,21 @@ public class PostagemDAO {
 			if (resultado.next()) {
 				Usuario objU = new Usuario();
 				objP = new Postagem();
+				
 				objP.setIdPostagem(resultado.getInt("idPostagem"));
 				objP.setPergunta(resultado.getString("pergunta"));
 				objP.setData(resultado.getTimestamp("datta"));
-				objP.setEncerrado(resultado.getBoolean("encerrada"));
-				objU.setNome(resultado.getString("apelido"));
+				objP.setEncerrado(resultado.getString("encerrada") == "0" ? false : true);
+				objU.setNick(resultado.getString("nick"));
 				objP.setDono(objU);
 			}
-			BD.COMANDO.close();
 
 		} catch (SQLException ex) {
-			System.err.println("Erro ao inserir comentário" + ex.getMessage());
+			System.err.println("Erro ao consultar postagem" + ex.getMessage());
 
 		}
 
-		return objP;//comentario teste
+		return objP;
 
 	}
 
