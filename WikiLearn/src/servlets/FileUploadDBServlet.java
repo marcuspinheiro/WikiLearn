@@ -70,7 +70,7 @@ public class FileUploadDBServlet extends HttpServlet {
         BD.MATERIAIS.incluir(inputStream, titulo, descricao, option, nome, filePart.getSubmittedFileName());
 //		BD.USUARIO_CURRICULUMS.incluir(email, assunto1, assunto2, descricao);
 		
-		response.sendRedirect("index_login.jsp");//fazer html para sucesso
+		response.sendRedirect("material_user.jsp");//fazer html para sucesso
 
 		
 		

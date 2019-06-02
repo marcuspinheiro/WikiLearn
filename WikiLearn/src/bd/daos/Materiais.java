@@ -168,6 +168,59 @@ public class Materiais {
         return resultado;
     }
     
+    public MeuResultSet getPublicacao_file_name (String codigo) throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT FILE_NAME  " +
+                  "FROM MATERIAl " +
+            		"WHERE MATERIAL.ID = " + codigo;
+            
+            this.log.printSql(sql);
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar usuario");
+        }
+
+        return resultado;
+    }
+    
+    
+    public MeuResultSet getPublicacao_codigo(String codigo) throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT ID  " +
+                  "FROM MATERIAl " +
+            		"WHERE MATERIAL.ID = " + codigo;
+            
+            this.log.printSql(sql);
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar usuario");
+        }
+
+        return resultado;
+    }
+    
     
     public MeuResultSet getPublicacao_tema (String codigo) throws Exception
     {
@@ -268,6 +321,35 @@ public class Materiais {
     }
     
     
+    
+    public MeuResultSet getPublicacoesUser (String email) throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT MATERIAL.TITULO, MATERIAL.DESCRICAO, MATERIAL.ID  FROM MATERIAl "+
+            	  "INNER JOIN TEMA ON TEMA.ID = MATERIAL.TEMA_ID " +
+            	  "INNER JOIN USUARIO ON USUARIO.ID = MATERIAL.USUARIO_ID " +
+            	  "WHERE USUARIO.EMAIL = '"+ email +"'";
+            		
+            
+            this.log.printSql(sql);
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar usuario");
+        }
+
+        return resultado;
+    }
+    
     public MeuResultSet getFile () throws Exception
     {
         MeuResultSet resultado = null;
@@ -276,7 +358,7 @@ public class Materiais {
         {
             String sql;
 
-            sql = "SELECT TITULO, FILE_BYTE  " +
+            sql = "SELECT FILE_NAME, FILE_BYTE  " +
                   "FROM MATERIAL " ;
             
             this.log.printSql(sql);

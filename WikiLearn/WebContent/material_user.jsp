@@ -22,20 +22,12 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
-		MeuResultSet tema = BD.TEMAS.getTemas();
-		
-		String codigo = request.getParameter("codigo");
-		
-		MeuResultSet publicacao = BD.MATERIAIS.getPublicacao(codigo);
-		MeuResultSet publicacao_data = BD.MATERIAIS.getPublicacao_data(codigo);
-		MeuResultSet publicacao_descricao = BD.MATERIAIS.getPublicacao_descricao(codigo);
-		MeuResultSet publicacao_avaliacao = BD.MATERIAIS.getPublicacao_avaliacao(codigo);
-		MeuResultSet publicacao_autor = BD.MATERIAIS.getPublicacao_autor(codigo);
-		MeuResultSet publicacao_tema = BD.MATERIAIS.getPublicacao_tema(codigo);
-		MeuResultSet publicacao_file_name =  BD.MATERIAIS.getPublicacao_file_name(codigo);
-		MeuResultSet publicacao_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 
+		MeuResultSet tema = BD.TEMAS.getTemas();
+				
+		
+		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoesUser(user.getEmail());
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -48,7 +40,8 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-			<!-- Menu -->
+		<!-- Menu -->
+			
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -113,54 +106,74 @@
 		</nav>
 
 
-
-<h1 class="text-center"><%
- 	while (publicacao.next()) {
- %> <%=publicacao.getString("TITULO")%> <%
+<h1 class="text-center">Publicações <%
+ 	while (resultado2.next()) {
+ %> <%=resultado2.getString("NICK")%> <%
  	}
  %></h1>
-
- <form method="get" action="downloadFiles">
-
-			<h3>Autor: <%
-			 	while (publicacao_autor.next()) {
-			 %> <%=publicacao_autor.getString("NICK")%> <%
-			 	}
-			 %></h3>
-			 <h3>Codigo: <label name = "codigo" id ="codigo"><%
-			 	while (publicacao_autor.next()) {
-			 %> <%=publicacao_codigo.getString("ID")%> <%
-			 	}
-			 %></label></h3>
-			<h4>Descrição:<%
-			 	while (publicacao_descricao.next()) {
-			 %> <%=publicacao_descricao.getString("DESCRICAO")%> <%
-			 	}
-			 %></h4>
-			<h4>Data:<%
-			 	while (publicacao_data.next()) {
-			 %> <%=publicacao_data.getString("DATA_PUBLICACAO")%> <%
-			 	}
-			 %> </h4>
-			<h4>Tema: <%
-			 	while (publicacao_tema.next()) {
-			 %> <%=publicacao_tema.getString("TEMA")%> <%
-			 	}
-			 %></h4>
-			<h4>Arquivo: <%
-			 	while (publicacao_file_name.next()) {
-			 %> <%=publicacao_file_name.getString("FILE_NAME")%> <%
-			 	}
-			 %></h4>
-			<h4>Avaliação:<%
-			 	while (publicacao_avaliacao.next()) {
-			 %> <%=publicacao_avaliacao.getString("NOTA")%> <%
-			 	}
-			 %> </h4>
-			 <input type="submit" value="download">
- </form>
  
  
+ 
+ 
+ <section class="album py-5 bg-light">
+    <section class="container">
+      <section class="row">
+      
+
+
+<%
+ 	while (tema_pagina.next()) {
+ %>
+
+        <section class="col-md-4">
+          <section class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><%=tema_pagina.getString("TITULO")%></text></svg>
+            <section class="card-body">
+              
+              <form class="publicacao" method="get" action = "publicacao.jsp">
+              
+	              <p class="card-text"><%=tema_pagina.getString("DESCRICAO")%>.</p>
+	              <section class="d-flex justify-content-between align-items-center">
+	                <section class="btn-group">
+	                </section>
+	                
+	              </section>
+	              <section>
+	              	<br/>
+	              	<label>Código: </label>
+	              	<input type="text" name="codigo" id = "codigo" value="<%=tema_pagina.getString("ID")%>" readonly="true">
+	              	<br/>
+	             	 <input type="submit" value="Ver publicação"> <small class="text-muted">Data: 9 mins</small>
+	              </section>
+              
+               </form>
+              
+                           
+            </section>
+          </section>
+        </section>
+              
+            <%
+ 	}
+ %>   
+              
+              
+              
+              
+
+        
+        
+        
+        
+      </section>
+    </section>
+  </section>
+ 
+ 
+
+ 
+ 
+
 	</section>
 
 	<!-- Optional JavaScript -->
