@@ -16,14 +16,18 @@
 	crossorigin="anonymous">
 
 <title>WIKI</title>
+
 </head>
 <body>
 	<!--DETECTA USUARIO LOGADO-->
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
+		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 
 		MeuResultSet tema = BD.TEMAS.getTemas();
+
+		MeuResultSet tema2 = BD.TEMAS.getTemas();
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -36,7 +40,7 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-				<!-- Menu -->
+		<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -47,15 +51,15 @@
 			</button>
 
 			<section class="collapse navbar-collapse" id="navbarSupportedContent">
-			
+
 				<ul class="navbar-nav mr-auto">
-					 <%
- 	while (resultado.next()) {%>
+					<%
+						while (resultado.next()) {
+					%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-  <%=resultado.getString("NICK")%><% 
+						aria-expanded="false"> <%=resultado.getString("NICK")%> <%
  	}
  %>
 					</a>
@@ -72,13 +76,17 @@
 						aria-expanded="false"> Materiais </a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<%
-					 	while (tema.next()) {
-					 		%><a class="dropdown-item" name="material" href="#"><% 
-					 %> <%=tema.getString("TEMA")%> 
-					 </a><% }
-					 %>
+								while (tema.next()) {
+							%><a class="dropdown-item" name="material" href="#"> <%
+ 	
+ %> <%=tema.getString("TEMA")%>
+							</a>
+							<%
+								}
+							%>
 							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
+					<li class="nav-item active"><a class="nav-link"
+						href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
@@ -91,8 +99,9 @@
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
-	
-				<form class="form-inline my-2 my-lg-0" method="get" action= "material.jsp">
+
+				<form class="form-inline my-2 my-lg-0" method="get"
+					action="material.jsp">
 					<input class="form-control mr-sm-2" type="search"
 						placeholder="Buscar Tema" aria-label="Search" name="material">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
@@ -100,43 +109,66 @@
 			</section>
 		</nav>
 
-			<!-- Upload file -->
-			
-	<section class="col-md-8 order-md-1">
-		<h4 class="mb-3">Formuário para cadastro de usuário</h4>
-		<form class="needs-validation" method="get" action="uploadFile"
-			novalidate>
-			<section class="row">
-				<section class="col-md-6 mb-3">
+		<!-- Upload file -->
+
+		<section class="col-md-8 order-md-1">
+			<h4 class="mb-3 text-center">Formuário para cadastro de usuário</h4>
+
+
+
+			<form method="post" action="uploadServlet" enctype="multipart/form-data">
+				<section class="row col-md-3 mb-20">
+					<label for="firstName">Propietário</label> <input type="text"
+						class="form-control" id="nome" name="nome" placeholder=""
+						value="<%while (resultado2.next()) {%> <%=resultado2.getString("NICK")%><%}%>"
+						required readonly>
+				</section>
+				<section>
 					<label for="titulo">Titulo</label> <input type="text"
-						class="form-control" id="titulo" name="titulo"
+						class="form-control mb-4 col-md-3" id="titulo" name="titulo"
 						placeholder="" value="" required>
-					<section class="invalid-feedback">Por favor entre com o titulo da publicação.</section>
+					<section class="invalid-feedback">Por favor entre com o
+						titulo da publicação.</section>
 				</section>
-			</section>
 
-			<section class="mb-3">
-				<label for="file">Arquivo</label>
-				<section class="input-group">
-					<section class="input-group-prepend">
-						<span class="input-group-text">#</span>
+
+
+				<section class="input-group ">
+				
+					<select name="option" id="option" class="custom-select col-md-4" id="inputGroupSelect02">
+						<option  selected>Escolha o tema da publicação...</option>
+						<%
+								while (tema2.next()) {
+							%><option  value="<%=tema2.getString("ID")%>"><%=tema2.getString("TEMA")%> </option>
+							<%} %>
+					</select>
+					<section class="input-group-append mb-4">
+						<label class="input-group-text" for="inputGroupSelect02">Options</label>
 					</section>
-					<input type="file" class="form-control" id="file"
-						name="file" placeholder="Escolha.." required>
-					<section class="invalid-feedback" style="width: 100%;">
-						arquivo</section>
 				</section>
-			</section>
 
 
-			<hr class="mb-4">
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
-		</form>
+				<section class="form-group">
+					<label for="exampleFormControlFile1">Arquivo</label> <input
+						type="file" class="form-control-file" id="photo" name="photo">
+				</section>
+
+
+				<section class="form-group">
+					<label for="exampleFormControlTextarea1">Descrição</label>
+					<textarea name ="descricao" class="form-control" id="exampleFormControlTextarea1"
+						rows="3"></textarea>
+				</section>
+
+		
+				<button class="btn btn-primary btn-lg btn-block col-md-3"
+					type="submit">Cadastrar</button>
+			</form>
 
 
 
-		<script src="valida_login.js"></script>
-	</section>
+			<script src="valida_login.js"></script>
+		</section>
 
 	</section>
 

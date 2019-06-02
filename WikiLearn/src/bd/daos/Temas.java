@@ -24,7 +24,7 @@ public class Temas {
         {
             String sql;
 
-            sql = "SELECT TEMA " +
+            sql = "SELECT ID, TEMA " +
                   "FROM TEMA "+
             		"WHERE TEMA <> 'NENHUM'";
            

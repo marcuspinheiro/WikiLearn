@@ -25,6 +25,9 @@
 		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		MeuResultSet tema = BD.TEMAS.getTemas();
 
+		
+		
+		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);

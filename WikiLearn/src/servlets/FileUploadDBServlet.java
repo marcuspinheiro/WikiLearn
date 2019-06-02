@@ -32,8 +32,19 @@ public class FileUploadDBServlet extends HttpServlet {
        
     	try {
     	
-    	String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+    		
+			String nome = request.getParameter("nome");
+			String titulo = request.getParameter("titulo");
+			int option = Integer.parseInt(request.getParameter ("option"));
+			String photo = request.getParameter("photo");
+			String descricao = request.getParameter("descricao");
+			
+				
+			System.out.println(nome);
+			System.out.println(titulo);
+			System.out.println(option);
+			System.out.println(photo);
+			System.out.println(descricao);
          
         InputStream inputStream = null; // input stream of the upload file
          
@@ -45,7 +56,7 @@ public class FileUploadDBServlet extends HttpServlet {
             System.out.println(filePart.getName());
             System.out.println(filePart.getSize());
             System.out.println(filePart.getContentType());
-             
+            System.out.println(filePart.getSubmittedFileName());
             // obtains input stream of the upload file
             inputStream = filePart.getInputStream();
         }
@@ -56,10 +67,10 @@ public class FileUploadDBServlet extends HttpServlet {
         
         
         
-        BD.MATERIAIS.incluir(inputStream, firstName);
+        BD.MATERIAIS.incluir(inputStream, titulo, descricao, option, nome, filePart.getSubmittedFileName());
 //		BD.USUARIO_CURRICULUMS.incluir(email, assunto1, assunto2, descricao);
 		
-		response.sendRedirect("sucesso.html");//fazer html para sucesso
+		response.sendRedirect("index_login.jsp");//fazer html para sucesso
 
 		
 		
