@@ -26,8 +26,34 @@ public class teste extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+try {
+			
+			//comeca o login
+			
+			System.out.println("Entrou Marcus");
+	
+			String nome = request.getParameter("nome");
+			String titulo = request.getParameter("titulo");
+			String option = request.getParameter("option");
+			String photo = request.getParameter("photo");
+			String descricao = request.getParameter("descricao");
+			
+				
+			System.out.println(nome);
+			System.out.println(titulo);
+			System.out.println(option);
+			System.out.println(photo);
+			System.out.println(descricao);
+	
+			response.sendRedirect("sucesso.html");
+
+		}catch(Exception erro){
+			
+			response.sendRedirect("erro.html");//fazer html para erro
+			
+		}
+		
 	}
 
 	/**

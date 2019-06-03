@@ -80,7 +80,7 @@
 							<section class="dropdown-sectionider"></section></li>
 					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"><a class="nav-link" href="#">Contato
+					<li class="nav-item active"><a class="nav-link" href="material_user.jsp">Minhas Publicações
 							<span class="sr-only">(current)</span>
 					</a></li>
 

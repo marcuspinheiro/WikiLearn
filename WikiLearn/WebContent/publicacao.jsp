@@ -33,7 +33,9 @@
 		MeuResultSet publicacao_avaliacao = BD.MATERIAIS.getPublicacao_avaliacao(codigo);
 		MeuResultSet publicacao_autor = BD.MATERIAIS.getPublicacao_autor(codigo);
 		MeuResultSet publicacao_tema = BD.MATERIAIS.getPublicacao_tema(codigo);
-		
+		MeuResultSet publicacao_file_name =  BD.MATERIAIS.getPublicacao_file_name(codigo);
+		MeuResultSet publicacao_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -118,33 +120,47 @@
  	}
  %></h1>
 
+ <form method="get" action="downloadFiles">
 
-<h3>Autor: <%
- 	while (publicacao_autor.next()) {
- %> <%=publicacao_autor.getString("NICK")%> <%
- 	}
- %></h3>
-<h4>Descrição:<%
- 	while (publicacao_descricao.next()) {
- %> <%=publicacao_descricao.getString("DESCRICAO")%> <%
- 	}
- %></h4>
-<h4>Data:<%
- 	while (publicacao_data.next()) {
- %> <%=publicacao_data.getString("DATA_PUBLICACAO")%> <%
- 	}
- %> </h4>
-<h4>Tema: <%
- 	while (publicacao_tema.next()) {
- %> <%=publicacao_tema.getString("TEMA")%> <%
- 	}
- %></h4>
-<h4>Arquivo: </h4>
-<h4>Avaliação:<%
- 	while (publicacao_avaliacao.next()) {
- %> <%=publicacao_avaliacao.getString("NOTA")%> <%
- 	}
- %> </h4>
+			<h3>Autor: <%
+			 	while (publicacao_autor.next()) {
+			 %> <%=publicacao_autor.getString("NICK")%> <%
+			 	}
+			 %></h3>
+			 <h3>Codigo: <label name = "codigo" id ="codigo"><%
+			 	while (publicacao_autor.next()) {
+			 %> <%=publicacao_codigo.getString("ID")%> <%
+			 	}
+			 %></label></h3>
+			<h4>Descrição:<%
+			 	while (publicacao_descricao.next()) {
+			 %> <%=publicacao_descricao.getString("DESCRICAO")%> <%
+			 	}
+			 %></h4>
+			<h4>Data:<%
+			 	while (publicacao_data.next()) {
+			 %> <%=publicacao_data.getString("DATA_PUBLICACAO")%> <%
+			 	}
+			 %> </h4>
+			<h4>Tema: <%
+			 	while (publicacao_tema.next()) {
+			 %> <%=publicacao_tema.getString("TEMA")%> <%
+			 	}
+			 %></h4>
+			<h4>Arquivo: <%
+			 	while (publicacao_file_name.next()) {
+			 %> <%=publicacao_file_name.getString("FILE_NAME")%> <%
+			 	}
+			 %></h4>
+			<h4>Avaliação:<%
+			 	while (publicacao_avaliacao.next()) {
+			 %> <%=publicacao_avaliacao.getString("NOTA")%> <%
+			 	}
+			 %> </h4>
+			 <input type="submit" value="download">
+ </form>
+ 
+ 
 	</section>
 
 	<!-- Optional JavaScript -->

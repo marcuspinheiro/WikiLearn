@@ -23,10 +23,11 @@
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		MeuResultSet tema = BD.TEMAS.getTemas();
 
+		MeuResultSet tema = BD.TEMAS.getTemas();
+				
 		
-		
+		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoesUser(user.getEmail());
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -39,7 +40,8 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-				<!-- Menu -->
+		<!-- Menu -->
+			
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -104,56 +106,73 @@
 		</nav>
 
 
-
-	<section class="col-md-8 order-md-1">
-		<h4 class="mb-3">Formuário para sugestão de tema</h4>
-		<form class="needs-validation" method="get" action="obrigado_sugestao.jsp"
-			novalidate>
-			<section class="row">
-				<section class="col-md-6 mb-3">
-					<label for="firstName">Nome do usuario</label> <input type="text"
-						class="form-control" id="nick" name="nick"
-						placeholder="" value="<%
- 	while (resultado2.next()) {%> <%=resultado2.getString("NICK")%><% 
+<h1 class="text-center">Publicações <%
+ 	while (resultado2.next()) {
+ %> <%=resultado2.getString("NICK")%> <%
  	}
- %>" required readonly>
-					<section class="invalid-feedback">Por favor entre com o
-						seu primeiro nome.</section>
-				</section>
-			</section>
-
-			<section class="mb-3">
-				<label for="username">Tema</label>
-				<section class="input-group">
-					<section class="input-group-prepend">
-						<span class="input-group-text">#</span>
-					</section>
-					<input type="text" class="form-control" id="tema"
-						name="tema" placeholder="Tema sugestão" required>
-					<section class="invalid-feedback" style="width: 100%;">
-						Tema obrigatório</section>
-				</section>
-			</section>
-
-			<section class="mb-3">
-				<label for="email">Descrição <span class="text-muted">(Obrigatório)</span></label>
-				<input type="text" class="form-control" id="descricao" name="descricao"
-					placeholder="Descriçao" required>
-				<section class="invalid-feedback">Por favor entre com uma descricao</section>
-			</section>
-			
-
-			<hr class="mb-4">
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
-		</form>
+ %></h1>
+ 
+ 
+ 
+ 
+ <section class="album py-5 bg-light">
+    <section class="container">
+      <section class="row">
+      
 
 
+<%
+ 	while (tema_pagina.next()) {
+ %>
 
-		<script src="valida_login.js"></script>
-	</section>
+        <section class="col-md-4">
+          <section class="card mb-4 shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><%=tema_pagina.getString("TITULO")%></text></svg>
+            <section class="card-body">
+              
+              <form class="publicacao" method="get" action = "publicacao.jsp">
+              
+	              <p class="card-text"><%=tema_pagina.getString("DESCRICAO")%>.</p>
+	              <section class="d-flex justify-content-between align-items-center">
+	                <section class="btn-group">
+	                </section>
+	                
+	              </section>
+	              <section>
+	              	<br/>
+	              	<label>Código: </label>
+	              	<input type="text" name="codigo" id = "codigo" value="<%=tema_pagina.getString("ID")%>" readonly="true">
+	              	<br/>
+	             	 <input type="submit" value="Ver publicação"> <small class="text-muted">Data: 9 mins</small>
+	              </section>
+              
+               </form>
+              
+                           
+            </section>
+          </section>
+        </section>
+              
+            <%
+ 	}
+ %>   
+              
+              
+              
+              
 
+        
+        
+        
+        
+      </section>
+    </section>
+  </section>
+ 
+ 
 
-
+ 
+ 
 
 	</section>
 

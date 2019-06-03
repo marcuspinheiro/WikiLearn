@@ -37,16 +37,9 @@ public class downloadFiles extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-		
-		System.out.println("Marcus");
-        
-    	
-    	
-    	
 		try {
 			
-			
+			int codigo = Integer.parseInt(request.getParameter("codigo"));
 			
 			 
 			MeuResultSet	result = BD.MATERIAIS.getFile();
@@ -55,7 +48,7 @@ public class downloadFiles extends HttpServlet {
     	
         if (result.next()) {
             // gets file name and file blob data
-            String fileName = result.getString("TITULO");
+            String fileName = result.getString("FILE_NAME");
             Blob blob = result.getBlob("FILE_BYTE");
             InputStream inputStream = blob.getBinaryStream();
             int fileLength = inputStream.available();
