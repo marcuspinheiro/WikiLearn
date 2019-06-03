@@ -88,6 +88,7 @@ public class Postagem {
 	public int getIdPostagem() {
 		return idPostagem;
 	}
+	
 
 	/**
 	 * @param idPostagem
