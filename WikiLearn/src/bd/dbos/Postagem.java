@@ -66,6 +66,7 @@ public class Postagem {
 		return comentarios;
 	}
 
+	
 	/**
 	 * @param comentarios
 	 *            the comentarios to set
