@@ -133,6 +133,7 @@
 							<input type="hidden" name="idPostagem" id = "idPostagem" value="<%=idPostagem%>">
 							<input required="required" maxlength="5000" minlength = "1" class="form-control" type="text" placeholder="Digite seu comentário..." name="comentario" id = "comentario">
 							<br /> <input type="submit" value="Comentar"> 
+							
 						</section>
 
 					</form>
