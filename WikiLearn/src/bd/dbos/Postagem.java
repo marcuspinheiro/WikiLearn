@@ -17,7 +17,6 @@ public class Postagem {
 	private List<Comentario> comentarios;
 	private Date data;
 	private long time;
-	private List<Tags> tags;
 	private boolean encerrado;
 	private int idPostagem;
 
@@ -26,7 +25,6 @@ public class Postagem {
 		this.data = new Date();
 		this.time = System.currentTimeMillis();
 		this.encerrado = false;
-		tags = new ArrayList<Tags>();
 		comentarios = new ArrayList<Comentario>();
 
 		/*
@@ -83,16 +81,6 @@ public class Postagem {
 		return data;
 	}
 
-	/**
-	 * @return the tags
-	 */
-	public List<Tags> getTags() {
-		return tags;
-	}
-
-	public void setTags(List<Tags> tags) {
-		this.tags = tags;
-	}
 
 	/**
 	 * @return the idPostagem

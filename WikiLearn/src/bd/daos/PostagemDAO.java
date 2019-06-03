@@ -33,6 +33,24 @@ public class PostagemDAO {
 			System.err.println("Erro ao inserir postagem" + erro.getMessage());
 		}
 	}
+	public void alterarStatusPostagem(int idPostagem, int status) {
+
+		try {
+
+			String query;
+
+			query = "update postagem set encerrada = ? where id = ?";
+			BD.COMANDO.prepareStatement(query);
+			BD.COMANDO.setInt(1, status);
+			BD.COMANDO.setInt(2, idPostagem);
+			BD.COMANDO.executeUpdate();
+			BD.COMANDO.commit();
+
+		} catch (SQLException erro) {
+			System.err.println("Erro ao atualizar status da postagem" + erro.getMessage());
+		}
+	}
+
 
 	public List<Postagem> listarPostagens() {
 		List<Postagem> lista = new ArrayList<Postagem>();
@@ -95,8 +113,9 @@ public class PostagemDAO {
 				objP.setIdPostagem(resultado.getInt("idPostagem"));
 				objP.setPergunta(resultado.getString("pergunta"));
 				objP.setData(resultado.getTimestamp("datta"));
-				objP.setEncerrado(resultado.getString("encerrada") == "0" ? false : true);
+				objP.setEncerrado(resultado.getInt("encerrada") == 0 ? false : true);
 				objU.setNick(resultado.getString("nick"));
+				objU.setId(resultado.getInt("idUser"));
 				objP.setDono(objU);
 			}
 
