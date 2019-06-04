@@ -13,7 +13,7 @@ public class BD
     public static final PostagemDAO POSTAGENS;
     public static final ComentarioDAO COMENTARIOS;
 
-    
+    //b
 
 
     static
