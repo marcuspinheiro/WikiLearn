@@ -53,7 +53,7 @@ public class ComentarioDAO {
 					+ " inner join postagem t2 on (t1.fk_postagem = t2.id) "
 					+ " inner join usuario u on t1.fk_usuario = u.id"
 					+ " where t1.fk_postagem = ? "
-					+ "	order by t1.datta desc;";
+					+ "	order by t1.datta asc;";
 			this.log.printSql(query);
 
 			BD.COMANDO.prepareStatement(query);
