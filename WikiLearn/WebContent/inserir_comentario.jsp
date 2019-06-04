@@ -24,13 +24,13 @@
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 
 		Usuario user_next = new Usuario(user.getEmail());
-		
+
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
-		if(resultado.first())
+		if (resultado.first())
 			user.setId(resultado.getInt("id"));
-		
-		String comentario = request.getParameter("comentario");			
+
+		String comentario = request.getParameter("comentario");
 		int idPostagem = Integer.parseInt(request.getParameter("idPostagem"));
 
 		Comentario comentarios = new Comentario();
@@ -38,9 +38,7 @@
 		comentarios.setIdPostagem(idPostagem);
 		comentarios.setComentario(comentario);
 
-
 		BD.COMENTARIOS.inserir(comentarios);
-		
 	%>
 
 
@@ -100,14 +98,21 @@
 				</form>
 			</section>
 		</nav>
-				<div class="jumbotron jumbotron-fluid">
-				  <div class="container">
-				    <h1 class="display-4">Dúvida Adicionada com Sucesso.</h1>
-				    <p class="lead">Clique no botão abaixo para voltar página principal</p>
-				  </div>
-				  <a class="btn btn-primary" href="index_login.jsp" role="button">Voltar</a>
+		<form class="voltar" method="get" action="duvida.jsp">
+
+			<section>
+				<div class="container">
+					<h1 class="display-4">Comentário adicionado com sucesso</h1>
+					<p class="lead">Clique para voltar a dúvida</p>
 				</div>
-		
+				<br /> 
+				<input type="hidden" name="idPostagem" id="idPostagem"
+				value="<%=idPostagem%>"> 
+				<input type="submit" value="Voltar">
+
+			</section>
+
+		</form>
 	</section>
 
 	<!-- Optional JavaScript -->

@@ -142,5 +142,12 @@ public class Postagem {
 	public long getTime() {
 		return time;
 	}
+	
+	public String rStatus() {
+		if(this.isEncerrado())
+			return "Fechada";
+		else
+			return "Abertada";
+	}
 
 }

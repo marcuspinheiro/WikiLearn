@@ -1,4 +1,4 @@
-<%@ page language="java" import="bd.BD,bd.core.*,bd.daos.*, bd.dbos.*, java.util.*"
+<%@ page language="java" import="bd.BD,bd.core.*,bd.daos.*, bd.dbos.*"
 	contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!doctype html>
 <html lang="pt">
@@ -22,25 +22,17 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		if(resultado.first())
-			user.setId(resultado.getInt("id"));
-		
-		int idPostagem = Integer.parseInt(request.getParameter("idPostagem"));
-		
-		Postagem postagem = BD.POSTAGENS.consultaPostagem(idPostagem);
-		
-		boolean userDono = false;
-		
-		if(user.getId() == postagem.getDono().getId())
-		{
-			userDono = true;
-		}
-	    System.out.println(user.getId() +"==" +postagem.getDono().getId());
-		
-		List<Comentario> listComentarios = BD.COMENTARIOS.listarComentarios(postagem);
+
 		Usuario user_next = new Usuario(user.getEmail());
+
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
+		if (resultado.first())
+			user.setId(resultado.getInt("id"));
+
+		int idPostagem = Integer.parseInt(request.getParameter("idPostagem"));
+
+		BD.POSTAGENS.alterarStatusPostagem(idPostagem, 1);
 	%>
 
 
@@ -49,7 +41,8 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-			<!-- Menu -->
+		<!-- Menu -->
+
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -60,15 +53,15 @@
 			</button>
 
 			<section class="collapse navbar-collapse" id="navbarSupportedContent">
-			
+
 				<ul class="navbar-nav mr-auto">
-					 <%
- 	while (resultado.next()) {%>
+					<%
+						while (resultado.next()) {
+					%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-  <%=resultado.getString("NICK")%><% 
+						aria-expanded="false"> <%=resultado.getString("NICK")%> <%
  	}
  %>
 					</a>
@@ -79,15 +72,6 @@
 							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="index.html">Sair</a>
 						</section></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Materiais </a>
-						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-	
-							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
-					</a></li>
 					<li class="nav-item active"><a class="nav-link" href="#">Contato
 							<span class="sr-only">(current)</span>
 					</a></li>
@@ -99,78 +83,30 @@
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
-	
-				<form class="form-inline my-2 my-lg-0" method="get" action= "material.jsp">
+
+				<form class="form-inline my-2 my-lg-0" method="get"
+					action="material.jsp">
 					<input class="form-control mr-sm-2" type="search"
 						placeholder="Buscar Tema" aria-label="Search" name="material">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
 				</form>
 			</section>
 		</nav>
+		<form class="voltar" method="get" action="duvida.jsp">
 
-
-
-<h1 class="text-center">
-  <%=postagem.getPergunta()%> 
-</h1>
-
-
-<h3>Autor: % <%=postagem.getDono().getNick()%> 
- 	
-</h3>
-
-<h4>Data:
- <%=postagem.getData()%> 
- 	
-  </h4>
-  <h4>Status:
- <%=postagem.rStatus()%> 
- 	
-  </h4>
-  <% if(userDono){%>
-  
-  		  <% if(!postagem.isEncerrado()) { %>
-  		<form class="encerrar" method="get" action="encerrarPostagem.jsp">
-
-			
+			<section>
+				<div class="container">
+					<h1 class="display-4">Dúvida Encerrada</h1>
+					<p class="lead">Clique para voltar a dúvida</p>
+				</div>
+				<br /> 
 				<input type="hidden" name="idPostagem" id="idPostagem"
 				value="<%=idPostagem%>"> 
-				<input type="submit" class="btn btn-danger" value="Encerrar">
+				<input type="submit" value="Voltar">
 
 			</section>
 
 		</form>
-		 <% } %>
-	
-	  
-<% } %>
-  		
-			<% for (int i = 0; i < listComentarios.size(); i++) {%>
-
-			<div class="shadow-sm p-3 mb-5 bg-white rounded">
-				<p><%=listComentarios.get(i).getDono().getNick()%> Disse: </p>
-				<p><%=listComentarios.get(i).getComentario()%> </p>
-			</div>
-
-		<%
-			}
-		%>
-		
-		  <% if(!postagem.isEncerrado()) { %>
-				<form class="inserirComentario" method="get" action="inserir_comentario.jsp">
-
-						<section>
-							<p class="text-secondary">Digite seu comentario:</p>
-							<input type="hidden" name="idPostagem" id = "idPostagem" value="<%=idPostagem%>">
-							<textarea required="required" maxlength="5000" minlength = "1" class="form-control" placeholder="Digite seu comentário..." name="comentario" id = "comentario"
-								rows="3"></textarea>
-							<br /> <input type="submit" value="Comentar"> 
-							
-						</section>
-
-					</form>
-		<% }%>
-
 	</section>
 
 	<!-- Optional JavaScript -->

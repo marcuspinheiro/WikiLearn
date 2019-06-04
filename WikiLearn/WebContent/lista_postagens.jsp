@@ -130,6 +130,8 @@
 
 						<section>
 							<p class="text-secondary">Dono da postagem: <%=postagens.get(i).getDono().getNick()%></p>
+							<p class="text-secondary">Status da postagem: <%=postagens.get(i).rStatus()%></p>
+							
 							<input type="hidden" name="idPostagem" id = "idPostagem" value="<%=postagens.get(i).getIdPostagem()%>">
 							<br /> <input type="submit" value="Ver publicação"> <small
 								class="text-muted">Data da postagem: <%=postagens.get(i).getData()%></small>
