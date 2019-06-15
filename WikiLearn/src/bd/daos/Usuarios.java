@@ -44,6 +44,75 @@ public class Usuarios {
 	        return retorno;
 	    }
 	 
+	 
+	 
+	 public boolean IsAdmin (String email) throws Exception
+	    {
+	        boolean retorno = false;
+
+	        try
+	        {
+	            String sql;
+
+	            sql = "SELECT * " +
+	                  "FROM USUARIO " +
+	                  "WHERE EMAIL =? AND ADMIN =1";
+
+	            
+	            
+	            BD.COMANDO.prepareStatement (sql);
+
+	            BD.COMANDO.setString (1, email);
+	         
+
+	            this.log.printSql(sql);
+	            MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+
+	            retorno = resultado.first(); 
+	            
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao procurar usuario");
+	        }
+
+	        return retorno;
+	    }
+	 
+	 public boolean IsPublicador (String email) throws Exception
+	    {
+	        boolean retorno = false;
+
+	        try
+	        {
+	            String sql;
+
+	            sql = "SELECT * " +
+	                  "FROM USUARIO " +
+	                  "WHERE EMAIL =? AND PUBLICADOR =1";
+
+	            
+	            
+	            BD.COMANDO.prepareStatement (sql);
+
+	            BD.COMANDO.setString (1, email);
+	         
+
+	            this.log.printSql(sql);
+	            MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+
+	            retorno = resultado.first(); 
+	            
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao procurar usuario");
+	        }
+
+	        return retorno;
+	    }
+	 
+	 
 	 public boolean cadastrado (String email) throws Exception
 	    {
 	        boolean retorno = false;

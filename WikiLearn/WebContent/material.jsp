@@ -126,33 +126,19 @@
  	while (tema_pagina.next()) {
  %>
 
-        <section class="col-md-4">
-          <section class="card mb-4 shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em"><%=tema_pagina.getString("TITULO")%></text></svg>
-            <section class="card-body">
-              
-              <form class="publicacao" method="get" action = "publicacao.jsp">
-              
-	              <p class="card-text"><%=tema_pagina.getString("DESCRICAO")%>.</p>
-	              <section class="d-flex justify-content-between align-items-center">
-	                <section class="btn-group">
-	                </section>
-	                
-	              </section>
-	              <section>
-	              	<br/>
-	              	<label>Código: </label>
-	              	<input type="text" name="codigo" id = "codigo" value="<%=tema_pagina.getString("ID")%>" readonly="true">
-	              	<br/>
-	             	 <input type="submit" value="Ver publicação"> <small class="text-muted">Data: 9 mins</small>
-	              </section>
-              
-               </form>
-              
-                           
-            </section>
-          </section>
-        </section>
+       <form class="publicacao" method="get" action="publicacao.jsp">
+
+					<section class="card text-black bg-light" style="width: 18rem;">
+						<section class="card-body">
+							<h5 class="card-title"><%=tema_pagina.getString("TITULO")%></h5>
+							<p class="card-text"><%=tema_pagina.getString("DESCRICAO")%></p>
+							<input type="hidden" name="codigo" id="codigo" value="<%=tema_pagina.getString("ID")%>" readonly="true">
+							<input type="submit" value="Ver publicação">
+						
+						</section>
+					</section>
+				</form>
+
               
             <%
  	}

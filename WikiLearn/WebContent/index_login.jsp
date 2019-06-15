@@ -22,7 +22,6 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
 		MeuResultSet tema = BD.TEMAS.getTemas();
 
 		Usuario user_next = new Usuario(user.getEmail());
@@ -80,16 +79,30 @@
 							<section class="dropdown-sectionider"></section></li>
 					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
 					</a></li>
+					
+					
+					<!-- Caso o usuário seja admin -->
+					<% if (BD.USUARIOS.IsAdmin(user.getEmail())){ %>
+					<li class="nav-item active"><a class="nav-link" href="#">Formulário tema<span class="sr-only">(current)</span></a></li>
+					<%} %>
+					
+					<!-- Caso o usuário seja PUBLICADOR -->
+					<% if (BD.USUARIOS.IsPublicador(user.getEmail())){ %>
 					<li class="nav-item active"><a class="nav-link" href="material_user.jsp">Minhas Publicações
 							<span class="sr-only">(current)</span>
 					</a></li>
-
+					<%} %>
 					<li class="nav-item active"><a class="nav-link" href="#">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
+					
+						<!-- Caso o usuário seja PUBLICADOR -->
+					<% if (BD.USUARIOS.IsPublicador(user.getEmail())){ %>
 					<li class="nav-item active"><a class="nav-link"
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
 					</a></li>
+					<%} %>
+					
 					<li class="nav-item active"><a class="nav-link"
 						href="forum_inicial.jsp">Forúm<span class="sr-only">(current)</span>
 					</a></li>
