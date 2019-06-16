@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bd.BD;
-import bd.dbos.Postagem;
 
 /**
- * Servlet implementation class Avaliar_publicacao
+ * Servlet implementation class aceite_sugestao
  */
-@WebServlet("/Avaliar_publicacao")
-public class Avaliar_publicacao extends HttpServlet {
+@WebServlet("/aceite_sugestao")
+public class aceite_sugestao extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Avaliar_publicacao() {
+    public aceite_sugestao() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,31 +28,28 @@ public class Avaliar_publicacao extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
 		
-		try {
+		
+			try {
+						
+						String tema = request.getParameter("tema");			
+						String descricao = request.getParameter("descricao");		
 			
-			String nota = request.getParameter("inlineRadioOptions");			
-			int codigo = Integer.parseInt(request.getParameter ("codigo"));
-			String email = request.getParameter("nick");			
-			
-			BD.MATERIAIS.avaliacao(codigo, nota);
-			
-			
-			
-			BD.AVALIACAO_MATERIAIS.incluir(email, codigo, Integer.parseInt(nota));
-			
-			response.sendRedirect("sucesso.html");//fazer html para sucesso
-			
-			
-			
-		}catch(Exception erro){
-			
-			response.sendRedirect("erro.html");//fazer html para erro
-			
-		}
+						BD.TEMAS.incluir(tema, descricao);
+						
+						BD.SUGESTOES.atualizar_insercao(tema, descricao);
+						
+						response.sendRedirect("avaliar_sugestao.jsp");//fazer html para sucesso
+						
+						
+						
+					}catch(Exception erro){
+						
+						response.sendRedirect("erro.html");//fazer html para erro
+						
+					}
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

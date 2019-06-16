@@ -22,7 +22,8 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
+		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
+		MeuResultSet resultado3 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		MeuResultSet tema = BD.TEMAS.getTemas();
 		
 		String codigo = request.getParameter("codigo");
@@ -36,7 +37,9 @@
 		MeuResultSet publicacao_file_name =  BD.MATERIAIS.getPublicacao_file_name(codigo);
 		MeuResultSet publicacao_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
 		MeuResultSet publicacao_codigo2 =  BD.MATERIAIS.getPublicacao_codigo(codigo);
-
+		MeuResultSet publicacao_codigo3 =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		
+		MeuResultSet nota = BD.AVALIACAO_MATERIAIS.getNota(user.getEmail(), Integer.parseInt(codigo));
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -188,45 +191,64 @@
 			 <input type="submit" value="download">  
  </form>
  
- 
- <!-- Validar publicação -->
-	 <form class = "mb-5" method="get" action="Avaliar_publicacao">
-	 <%
-			 	while (publicacao_codigo2.next()) {
-			 %>  
-			 <input type="hidden" id = "codigo" name="codigo" value="<%=publicacao_codigo2.getString("ID")%>">
-			 <%
-			 	}
-			 %>
-	 <h4>Avaliar Publicação:</h4>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-		  <label class="form-check-label" for="inlineRadio1">1</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-		  <label class="form-check-label" for="inlineRadio2">2</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-		  <label class="form-check-label" for="inlineRadio3">3</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
-		  <label class="form-check-label" for="inlineRadio4">4</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
-		  <label class="form-check-label" for="inlineRadio5">5</label>
-		</section>
-		<br>
-		<br>
+ <%while(resultado3.next() && publicacao_codigo3.next()) {
 
-		<p><input type="submit" value="Enviar"> </p>
-	  </form>
+ 
+	if (!BD.AVALIACAO_MATERIAIS.JaValidou(resultado3.getString("NICK"), Integer.parseInt(publicacao_codigo3.getString("ID")))) {%>
+		 <!-- Validar publicação -->
+			 <form class = "mb-5" method="get" action="Avaliar_publicacao">
+			 <%
+					 	while (publicacao_codigo2.next()) {
+					 %>  
+					 <input type="hidden" id = "codigo" name="codigo" value="<%=publicacao_codigo2.getString("ID")%>">
+					 <%
+					 	}
+					 %>
+					 
+				 <%
+					 	while (resultado2.next()) {
+					 %>  
+					 <input type="hidden" id = "nick" name="nick" value="<%=resultado2.getString("NICK")%>">
+					 <%
+					 	}
+					 %>	 
+			 <h4>Avaliar Publicação:</h4>
+				<section class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+				  <label class="form-check-label" for="inlineRadio1">1</label>
+				</section>
+				<section class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+				  <label class="form-check-label" for="inlineRadio2">2</label>
+				</section>
+				<section class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
+				  <label class="form-check-label" for="inlineRadio3">3</label>
+				</section>
+				<section class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
+				  <label class="form-check-label" for="inlineRadio4">4</label>
+				</section>
+				<section class="form-check form-check-inline">
+				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
+				  <label class="form-check-label" for="inlineRadio5">5</label>
+				</section>
+				<br>
+				<br>
+				
+				<p><input type="submit" value="Enviar"> </p>
+			  </form>
+  <%} else {
+	  
+	  %>
+	  <h4>Avaliar Publicação:</h4>
+	  <label class="text-danger"> Você já votou. Você atribuiu nota  <% 	while (nota.next()) {
+			 %> <%=nota.getString("NOTA")%> <%
+			 	}
+			 %> para a esta publicação</label>
+  <% } %>
   
-  
-  
+ <% }%> 
   
   
  <h4>Currículo do Propietário:</h4>
@@ -239,7 +261,24 @@
 				<p>Currículo</p>
 			</section>
  
+ <% if (BD.MATERIAIS.IsPropietario(user.getEmail())){%>
+ 
+ 	<form class="mb-5" method="get" action="">
+ 		<input type="submit" value="Editar">
+ 	</form>
+ 	
+ 	<form class="mb-5" method="get" action="">
+ 		<input type="submit" value="Deletar">
+ 	</form>
+ 
+ 
+ <%} %>
+ 
 	</section>
+
+
+
+
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

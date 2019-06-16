@@ -42,7 +42,40 @@ public class Temas {
         return resultado;
     }
     
-    
+    public void incluir ( String sugestao, String descricao) throws Exception
+    {
+       
+
+        try
+        {
+		
+
+            String sql;
+
+            sql = "INSERT INTO TEMA " +
+                  "(TEMA, DESCRICAO) "+
+                  "VALUES (?, ?)";
+            
+            
+            this.log.printSql(sql);
+            BD.COMANDO.prepareStatement (sql);
+            
+            BD.COMANDO.setString (1, sugestao);
+            BD.COMANDO.setString (2, descricao);
+
+           
+			
+
+            BD.COMANDO.executeUpdate ();
+            BD.COMANDO.commit        ();
+            
+            
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao inserir sugestões");
+        }
+    }
     
     public MeuResultSet getTemas (String tema) throws Exception
     {

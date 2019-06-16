@@ -12,7 +12,7 @@ public class BD
     public static final Sugestoes SUGESTOES;
     public static final PostagemDAO POSTAGENS;
     public static final ComentarioDAO COMENTARIOS;
-
+    public static final Avaliacao_materiais AVALIACAO_MATERIAIS;
     //b
 
 
@@ -25,6 +25,7 @@ public class BD
      	Sugestoes sugestoes = null;
      	PostagemDAO postagens = null;
      	ComentarioDAO comentarios = null;
+     	Avaliacao_materiais avaliacao_material = null;
 
     	try
         {
@@ -50,6 +51,7 @@ public class BD
             sugestoes = new Sugestoes();
             postagens = new PostagemDAO();
             comentarios = new ComentarioDAO();
+            avaliacao_material = new Avaliacao_materiais();
             
         }
         catch (Exception erro)
@@ -65,6 +67,7 @@ public class BD
         SUGESTOES = sugestoes;
         POSTAGENS = postagens;
         COMENTARIOS = comentarios;
+        AVALIACAO_MATERIAIS = avaliacao_material;
     
     }
 }

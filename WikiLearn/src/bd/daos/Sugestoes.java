@@ -45,6 +45,36 @@ public class Sugestoes {
 	        }
 	    }
 
+	 
+	  public void atualizar_insercao (String tema, String descricao) throws Exception
+	    {
+	        
+	        try
+	        {
+	            String sql;
+
+	            sql = "UPDATE SUGESTAO " +
+	                  "SET STATUS= 1 " +
+	                  "WHERE TEMA_SUGESTAO = ? AND DESCRICAO=?";
+
+	            BD.COMANDO.prepareStatement (sql);
+
+
+	            BD.COMANDO.setString (1, tema);
+	            BD.COMANDO.setString (2, descricao);
+
+
+	            
+
+	            BD.COMANDO.executeUpdate ();
+	            BD.COMANDO.commit        ();
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao atualizar dados de usuario");
+	        }
+	    }
+	 
 	
 	    public MeuResultSet getSugestao() throws Exception
 	    {
@@ -57,7 +87,7 @@ public class Sugestoes {
 	            sql = "SELECT SUGESTAO.TEMA_SUGESTAO, SUGESTAO.DESCRICAO, USUARIO.NICK " +
 	                  "FROM SUGESTAO " +
 	            	  "INNER JOIN USUARIO ON USUARIO.ID = SUGESTAO.USUARIO_ID " +
-	                  "WHERE MATERIAL.STATUS = 0";
+	                  "WHERE SUGESTAO.STATUS = 0";
 	            
 	            this.log.printSql(sql);
 

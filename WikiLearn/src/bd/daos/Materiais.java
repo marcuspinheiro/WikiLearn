@@ -407,6 +407,40 @@ public class Materiais {
         }
     }
     
+    public boolean IsPropietario (String email) throws Exception
+    {
+        boolean retorno = false;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT * " +
+                  "FROM MATERIAL " +
+                  "INNER JOIN USUARIO ON USUARIO.ID = MATERIAL.USUARIO_ID " +
+                  "WHERE USUARIO.EMAIL =? AND PUBLICADOR =1";
+
+            
+            
+            BD.COMANDO.prepareStatement (sql);
+
+            BD.COMANDO.setString (1, email);
+         
+
+            this.log.printSql(sql);
+            MeuResultSet resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+
+            retorno = resultado.first(); 
+            
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao procurar usuario");
+        }
+
+        return retorno;
+    }
+    
     public MeuResultSet getFile (int codigo) throws Exception
     {
         MeuResultSet resultado = null;

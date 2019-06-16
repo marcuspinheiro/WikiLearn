@@ -24,7 +24,7 @@
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		MeuResultSet tema = BD.TEMAS.getTemas();
 		MeuResultSet sugestao = BD.SUGESTOES.getSugestao();
-		
+		MeuResultSet sugestao2 = BD.SUGESTOES.getSugestao();
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
@@ -112,19 +112,25 @@
 		
 		
 		
-<h1 class="text-center">Temas</h1>
+<h1 class="text-center">Temas Sugeridos</h1>
 		
 		
 		<section id="relatorio">
 		
 		<%
-			while (sugestao.next()) {
+			while (sugestao.next() && sugestao2.next()) {
 			 %>
 			 
 			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-			<form class="temas" method = "get" action="material.jsp">
-				<h3><%=sugestao.getString("TEMA")%> </h3><input type="submit" value="Ver publicações">
-				<input type="hidden" name= "material" id ="material" value= "<%=sugestao.getString("TEMA")%>">
+			<form class="temas" method = "get" action="aceite_sugestao">
+				<p>Sugestão: <%=sugestao.getString("TEMA_SUGESTAO")%> </p>
+				<p>Tema: <%=sugestao.getString("DESCRICAO")%> </p>
+				<p>Autor: <%=sugestao.getString("NICK")%> </p>
+				
+				<input type="hidden" name="tema" id="tema" value="<%=sugestao2.getString("TEMA_SUGESTAO")%>" >
+				<input type="hidden" name="descricao" id="descricao" value="<%=sugestao2.getString("DESCRICAO")%>" >
+				
+				<input type="submit" value="Aceitar">
 			</form>
 			 </section>
 		
