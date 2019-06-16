@@ -28,6 +28,8 @@
 		String material = request.getParameter("material");
 		
 		MeuResultSet tema_escolhido = BD.TEMAS.getTemas(material); 
+		MeuResultSet tema_escolhido2 = BD.TEMAS.getTemas(material); 
+
 		MeuResultSet tema_pagina = BD.MATERIAIS.getPublicacoes(material);
 		
 		Usuario user_next = new Usuario(user.getEmail());
@@ -118,7 +120,7 @@
  
  <section class="album py-5 bg-light">
     <section class="container">
-      <section class="row">
+      <section class="row mb-5">
       
 
 
@@ -153,11 +155,19 @@
         
         
       </section>
+      
     </section>
   </section>
  
  
-
+      <section>
+      
+	      <form class="relatorio" method="get" action="relatorio.jsp">
+	      	<input type="hidden" name="tema" id ="tema" value="<% while (tema_escolhido2.next()) {%> <%=tema_escolhido2.getString("TEMA")%> <%}%>">
+	      	<input type="submit" value="Ver relátorio">
+	      </form>
+	      
+	  </section>
  
  
 

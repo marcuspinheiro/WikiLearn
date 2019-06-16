@@ -61,7 +61,6 @@ public class FileUploadDBServlet extends HttpServlet {
             inputStream = filePart.getInputStream();
         }
         
-        System.out.println("Marcus");
         
         
         

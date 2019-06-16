@@ -56,7 +56,7 @@ public class Temas {
 
             sql = "SELECT TEMA " +
                   "FROM TEMA "+
-            		"WHERE TEMA = '"+ tema +"'";
+            		"WHERE TEMA = LTRIM(RTRIM('"+ tema +"'))";
            
             this.log.printSql(sql);
 

@@ -40,8 +40,8 @@ public class downloadFiles extends HttpServlet {
 		try {
 			
 			
-			 
-			MeuResultSet	result = BD.MATERIAIS.getFile();
+			int codigo = Integer.parseInt(request.getParameter ("codigo"));
+			MeuResultSet	result = BD.MATERIAIS.getFile(codigo);
 		
     	
     	

@@ -4,6 +4,9 @@
 <html lang="pt">
 <head>
 
+<script src="https://code.jquery.com/jquery-2.1.4.js" integrity="sha256-siFczlgw4jULnUICcdm9gjQPZkw/YPDqhQ9+nAOScE4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport"
@@ -22,20 +25,12 @@
 	<%
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		
 		MeuResultSet tema = BD.TEMAS.getTemas();
 		
-		String codigo = request.getParameter("codigo");
+		String tema_relatorio = request.getParameter("tema");
 		
-		MeuResultSet publicacao = BD.MATERIAIS.getPublicacao(codigo);
-		MeuResultSet publicacao_data = BD.MATERIAIS.getPublicacao_data(codigo);
-		MeuResultSet publicacao_descricao = BD.MATERIAIS.getPublicacao_descricao(codigo);
-		MeuResultSet publicacao_avaliacao = BD.MATERIAIS.getPublicacao_avaliacao(codigo);
-		MeuResultSet publicacao_autor = BD.MATERIAIS.getPublicacao_autor(codigo);
-		MeuResultSet publicacao_tema = BD.MATERIAIS.getPublicacao_tema(codigo);
-		MeuResultSet publicacao_file_name =  BD.MATERIAIS.getPublicacao_file_name(codigo);
-		MeuResultSet publicacao_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
-		MeuResultSet publicacao_codigo2 =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		MeuResultSet relatorio = BD.MATERIAIS.getPublicacao_relatorio(tema_relatorio);
+		MeuResultSet tema_escolhido = BD.TEMAS.getTemas(tema_relatorio); 
 
 		
 		Usuario user_next = new Usuario(user.getEmail());
@@ -49,7 +44,7 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-			<!-- Menu -->
+		<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -93,15 +88,32 @@
 							<section class="dropdown-sectionider"></section></li>
 					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"><a class="nav-link" href="#">Contato
+					
+					
+					<!-- Caso o usuário seja admin -->
+					<% if (BD.USUARIOS.IsAdmin(user.getEmail())){ %>
+					<li class="nav-item active"><a class="nav-link" href="#">Formulário tema<span class="sr-only">(current)</span></a></li>
+					<%} %>
+					
+					<!-- Caso o usuário seja PUBLICADOR -->
+					<% if (BD.USUARIOS.IsPublicador(user.getEmail())){ %>
+					<li class="nav-item active"><a class="nav-link" href="material_user.jsp">Minhas Publicações
 							<span class="sr-only">(current)</span>
 					</a></li>
-
+					<%} %>
 					<li class="nav-item active"><a class="nav-link" href="#">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
+					
+						<!-- Caso o usuário seja PUBLICADOR -->
+					<% if (BD.USUARIOS.IsPublicador(user.getEmail())){ %>
 					<li class="nav-item active"><a class="nav-link"
 						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
+					</a></li>
+					<%} %>
+					
+					<li class="nav-item active"><a class="nav-link"
+						href="forum_inicial.jsp">Forúm<span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
 	
@@ -112,134 +124,67 @@
 				</form>
 			</section>
 		</nav>
-
-
-
-<h1 class="text-center"><%
- 	while (publicacao.next()) {
- %> <%=publicacao.getString("TITULO")%> <%
+		
+		
+		
+		
+<h1 class="text-center">Relatório de <%
+ 	while (tema_escolhido.next()) {
+ %> <%=tema_escolhido.getString("TEMA")%> <%
  	}
  %></h1>
-
- <form class = "mb-5" method="get" action="downloadFiles">
-
-			 <%
-			 	while (publicacao_codigo.next()) {
-			 %>  
-			 <input type="hidden" id = "codigo" name="codigo" value="<%=publicacao_codigo.getString("ID")%>">
-			 <%
-			 	}
+		
+<section id="relatorio">
+		<%
+			while (relatorio.next()) {
 			 %>
-			 
-			<h4>Descrição:</h4>
+		<section class="shadow-sm p-3 mb-5 bg-white rounded">
+			<p>Título: <%=relatorio.getString("TITULO")%> </p>
+			<p>Tema: <%=relatorio.getString("TEMA")%> </p>
+			<p>Nota: <%=relatorio.getString("NOTA")%> </p>
+			<p>Data Publicação: <%=relatorio.getString("DATA_PUBLICACAO")%> </p>
+			<input type="hidden" value= "______________________________________________________________________________________________________">
 			
-			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-			<p><%
-			 	while (publicacao_descricao.next()) {
-			 %> <%=publicacao_descricao.getString("DESCRICAO")%> <%
-			 	}
-			 %></p>
 			 </section>
-			 
-			<h4>Data Publicação:</h4>
-			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-			<p>
-			<%
-			 	while (publicacao_data.next()) {
-			 %> <%=publicacao_data.getString("DATA_PUBLICACAO")%> <%
-			 	}
-			 %> 
-			 </section>
-			 
-			<h4>Tema Publicação:</h4> 
-			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-			<p>
-			<%
-			 	while (publicacao_tema.next()) {
-			 %> <%=publicacao_tema.getString("TEMA")%> <%
+		
+		<%
 			 	}
 			 %>
-			 </p>
-			 </section>
-			 
-			<h4>Nome Arquivo: </h4> 
-			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-			<p>
-			<%
-			while (publicacao_file_name.next()) {
-			 %> <%=publicacao_file_name.getString("FILE_NAME")%> <%
-			 	}
-			 %></p>
-			 </section>
-			 
-			 
-			 
-			<h4>Avaliação Atribuida:</h4>
-			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-			<p>
-			<%
-			 	while (publicacao_avaliacao.next()) {
-			 %> <%=publicacao_avaliacao.getString("NOTA")%> <%
-			 	}
-			 %> 
-			 
-			 </p>
-			 </section>
-			 <input type="submit" value="download">  
- </form>
- 
- 
- <!-- Validar publicação -->
-	 <form class = "mb-5" method="get" action="Avaliar_publicacao">
-	 <%
-			 	while (publicacao_codigo2.next()) {
-			 %>  
-			 <input type="hidden" id = "codigo" name="codigo" value="<%=publicacao_codigo2.getString("ID")%>">
-			 <%
-			 	}
-			 %>
-	 <h4>Avaliar Publicação:</h4>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-		  <label class="form-check-label" for="inlineRadio1">1</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-		  <label class="form-check-label" for="inlineRadio2">2</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-		  <label class="form-check-label" for="inlineRadio3">3</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
-		  <label class="form-check-label" for="inlineRadio4">4</label>
-		</section>
-		<section class="form-check form-check-inline">
-		  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
-		  <label class="form-check-label" for="inlineRadio5">5</label>
-		</section>
-		<br>
-		<br>
+</section>
+<button id="btGerarPDF">gerar PDF</button>
+<script>
 
-		<p><input type="submit" value="Enviar"> </p>
-	  </form>
-  
-  
-  
-  
-  
- <h4>Currículo do Propietário:</h4>
- 			<section class="shadow-sm p-3 mb-5 bg-white rounded">
-				<p>Dono:<%
-			 	while (publicacao_autor.next()) {
-			 %> <%=publicacao_autor.getString("NICK")%> <%
-			 	}
-			 %> </p>
-				<p>Currículo</p>
-			</section>
- 
-	</section>
+	var doc = new jsPDF();
+	   
+	   var imgData = new Image();
+	imgData.src = "http://1.bp.blogspot.com/_NiOrby0FW3k/SosVz0roVhI/AAAAAAAACAc/J5VBZivDyHg/S1600-R/IkaroBrasilLogo.PNG";
+	
+	doc.addImage(imgData, 'JPEG',65,60,80,60);
+	doc.setFontSize(10);
+	doc.text(39, 284, '_____________________________________________________________________');
+	doc.text(95, 290, 'Equipe WikiLearn.');
+	
+	doc.addPage();
+	var specialElementHandlers = {
+	   '#editor': function (element, renderer) {
+	       return true;
+	   }
+	};
+	
+	$('#btGerarPDF').click(function () {
+	   doc.fromHTML($('#relatorio').html(), 15, 15, {
+	       'width': 170,
+	           'elementHandlers': specialElementHandlers
+	   });
+	
+	   doc.save('WikiLearn.pdf');
+	});
+
+</script>	
+		
+		
+		
+		</section>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
