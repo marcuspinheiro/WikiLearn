@@ -29,6 +29,19 @@
 
 		MeuResultSet tema2 = BD.TEMAS.getTemas();
 		
+		
+		String codigo = request.getParameter("codigo");
+		
+		MeuResultSet publicacao = BD.MATERIAIS.getPublicacao(codigo);
+		MeuResultSet publicacao_data = BD.MATERIAIS.getPublicacao_data(codigo);
+		MeuResultSet publicacao_descricao = BD.MATERIAIS.getPublicacao_descricao(codigo);
+		MeuResultSet publicacao_avaliacao = BD.MATERIAIS.getPublicacao_avaliacao(codigo);
+		MeuResultSet publicacao_autor = BD.MATERIAIS.getPublicacao_autor(codigo);
+		MeuResultSet publicacao_tema = BD.MATERIAIS.getPublicacao_tema(codigo);
+		MeuResultSet publicacao_file_name =  BD.MATERIAIS.getPublicacao_file_name(codigo);
+		MeuResultSet publicacao_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		MeuResultSet publicacao_codigo2 =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
@@ -112,7 +125,7 @@
 		<!-- Upload file -->
 
 		<section class="col-md-8 order-md-1">
-			<h4 class="mb-3 text-center">Formuário para cadastro de usuário</h4>
+			<h4 class="mb-3 text-center">Formuário para atualizar publicação</h4>
 
 
 
@@ -126,7 +139,11 @@
 				<section>
 					<label for="titulo">Titulo</label> <input type="text"
 						class="form-control mb-4 col-md-3" id="titulo" name="titulo"
-						placeholder="" value="" required>
+						placeholder="" value="<%
+			 	while (publicacao.next()) {
+			 %> <%=publicacao.getString("TITULO")%> <%
+			 	}
+			 %>" required>
 					<section class="invalid-feedback">Por favor entre com o
 						titulo da publicação.</section>
 				</section>
@@ -157,12 +174,26 @@
 				<section class="form-group">
 					<label for="exampleFormControlTextarea1">Descrição</label>
 					<textarea name ="descricao" class="form-control" id="exampleFormControlTextarea1"
-						rows="3"></textarea>
+						rows="3" value="<%
+			 	while (publicacao_descricao.next()) {
+			 %> <%=publicacao_descricao.getString("DESCRICAO")%> <%
+			 	}
+			 %>"></textarea>
 				</section>
-
-				<input type="hidden" name="acao" id ="acao" value="1">
+				
+				<%
+					 	while (publicacao_codigo.next()) {
+					 %>  
+					 <input type="hidden" id = "codigo" name="codigo" value="<%=publicacao_codigo.getString("ID")%>">
+					 <%
+					 	}
+					 %>
+					 
+					 
+				<input type="hidden" name="acao" id ="acao" value="2">
+		
 				<button class="btn btn-primary btn-lg btn-block col-md-3"
-					type="submit">Cadastrar</button>
+					type="submit">Salvar</button>
 			</form>
 
 

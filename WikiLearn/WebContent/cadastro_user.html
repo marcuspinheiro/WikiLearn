@@ -126,11 +126,23 @@
 
 			</section>
 
-			<h5 class="mb-3">Cadastro de curriculo</h5>
-			<h6 class="mb-3">Nesta parte do cadastro voce deve informar os
-				seus conhecimentos na area de tecnologia</h6>
+	<section class="row">
+		<section class="col mb-3">
+		<label for="data_nascimento">Deseja postar materiais/artigos na plataforma</label>
+			<section class="form-check">
+			  <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1">
+			  <label class="form-check-label" for="defaultCheck1">
+			    SIM
+			  </label>
+			</section>
+		</section>
+	</section>
+			
+			<h5 class="mb-3">Cadastro de currículo</h5>
+			<h6 class="mb-3">Nesta parte do cadastro você deve informar os
+				seus conhecimentos na área de tecnologia</h6>
 			<label for="information">Informar 2 assuntos de maior
-				conhecimento na area de tecnologia</label>
+				conhecimento na área de tecnologia</label>
 			<section class="row">
 				<section class="col-md-5 mb-3">
 					<label for="assunto1">Assunto 1</label> <select
@@ -179,21 +191,16 @@
 				</section>
 
 			</section>
-			<section class="row">
-				<section class="col-md-6 mb-3">
-					<label for="summary">Breve descricao sobre seus
-						conhecimentos <span class="text-muted">(Obrigatório)</span>
-					</label> <input type="text" class="form-control" id="summary"
-						name="summary" placeholder="" required>
-					<section class="invalid-feedback">Por favor entre com uma
-						descricao valida</section>
+			
+				<section class="form-group">
+					<label for="exampleFormControlTextarea1">Descrição</label>
+					<textarea name ="descricao" class="form-control" id="exampleFormControlTextarea1"
+						rows="4"></textarea>
 				</section>
-
-			</section>
 
 
 			<hr class="mb-4">
-			<button class="btn btn-primary btn-lg btn-block" type="submit">Cadastrar</button>
+			<button class="btn btn-primary btn-lg btn-block mb-5" type="submit">Cadastrar</button>
 		</form>
 
 

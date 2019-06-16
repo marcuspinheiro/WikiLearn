@@ -39,6 +39,9 @@
 		MeuResultSet publicacao_codigo2 =  BD.MATERIAIS.getPublicacao_codigo(codigo);
 		MeuResultSet publicacao_codigo3 =  BD.MATERIAIS.getPublicacao_codigo(codigo);
 		
+		MeuResultSet edit_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		MeuResultSet delete_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
+		
 		MeuResultSet nota = BD.AVALIACAO_MATERIAIS.getNota(user.getEmail(), Integer.parseInt(codigo));
 		
 		Usuario user_next = new Usuario(user.getEmail());
@@ -263,11 +266,27 @@
  
  <% if (BD.MATERIAIS.IsPropietario(user.getEmail())){%>
  
- 	<form class="mb-5" method="get" action="">
+ 	<form class="mb-5" method="get" action="editar_postagem.jsp">
+ 	<%
+					 	while (edit_codigo.next()) {
+					 %>  
+					 <input type="hidden" id = "codigo" name="codigo" value="<%=edit_codigo.getString("ID")%>">
+					 <%
+					 	}
+					 %>
  		<input type="submit" value="Editar">
  	</form>
  	
- 	<form class="mb-5" method="get" action="">
+ 	<form class="mb-5" method="get" action="deletar_postagem">
+ 		
+ 					 <%
+					 	while (delete_codigo.next()) {
+					 %>  
+					 <input type="hidden" id = "codigo" name="codigo" value="<%=delete_codigo.getString("ID")%>">
+					 <%
+					 	}
+					 %>
+ 		
  		<input type="submit" value="Deletar">
  	</form>
  

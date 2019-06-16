@@ -322,6 +322,54 @@ public class Materiais {
 	        }
 	    }
     
+	 
+	 public void atualizar (InputStream inputStream, String nome, String descricao, int tema_id, int codigo, String file_name) throws Exception
+	    {
+	        
+
+	        try
+	        {
+			
+
+	            String sql;
+
+	            sql = "UPDATE MATERIAL " +
+	            		"SET  FILE_BYTE = ?," +
+	            		"TITULO = ?,"+
+	            		"DESCRICAO = ?,"+
+	            		"DATA_PUBLICACAO = GETDATE(),"+
+	            		"FILE_NAME =?,"+
+	            		"TEMA_ID=? "
+	                  + "WHERE ID = " + codigo;
+	                  
+	                  
+	                  
+	    
+	            
+	            this.log.printSql(sql);
+
+	            BD.COMANDO.prepareStatement (sql);
+
+	            BD.COMANDO.setBlob (1, inputStream);
+	            BD.COMANDO.setString (2, nome);
+	            BD.COMANDO.setString (3, descricao);
+	            BD.COMANDO.setString (4, file_name);
+	            BD.COMANDO.setInt (5, tema_id);
+
+				
+
+	            BD.COMANDO.executeUpdate ();
+	            BD.COMANDO.commit        ();
+	            
+	            
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao inserir usuario");
+	        }
+	    }
+	 
+	 
     public MeuResultSet getPublicacoes (String tema) throws Exception
     {
         MeuResultSet resultado = null;
@@ -394,6 +442,32 @@ public class Materiais {
                   ", TOT_AVALIACAO= TOT_AVALIACAO + 1 " +
             	  ", TOT_NOTA = TOT_NOTA + "+nota+ " "+
                   "WHERE ID = " + codigo;
+
+            this.log.printSql(sql);
+            
+            BD.COMANDO.prepareStatement (sql);
+            BD.COMANDO.executeUpdate ();
+            BD.COMANDO.commit        ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao atualizar dados de usuario");
+        }
+    }
+    
+    
+    public void delete (int codigo) throws Exception
+    {
+       
+
+       
+        try
+        {
+            String sql;
+
+            sql = "DELETE FROM MATERIAL WHERE ID = " + codigo;
+
+                  
 
             this.log.printSql(sql);
             

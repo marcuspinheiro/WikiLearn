@@ -39,12 +39,20 @@ public class FileUploadDBServlet extends HttpServlet {
 			String photo = request.getParameter("photo");
 			String descricao = request.getParameter("descricao");
 			
-				
+			
+			
+			int acao = Integer.parseInt(request.getParameter ("acao"));
+			
+			int codigo = Integer.parseInt(request.getParameter ("codigo"));
+			
+			
 			System.out.println(nome);
 			System.out.println(titulo);
 			System.out.println(option);
 			System.out.println(photo);
 			System.out.println(descricao);
+			System.out.println("acao: " +acao);
+			System.out.println("codigo: "+codigo);
          
         InputStream inputStream = null; // input stream of the upload file
          
@@ -64,9 +72,14 @@ public class FileUploadDBServlet extends HttpServlet {
         
         
         
+        if (acao == 2) {
+        	
+        	BD.MATERIAIS.atualizar(inputStream, titulo, descricao, option, codigo, filePart.getSubmittedFileName());
+        }else {
+            BD.MATERIAIS.incluir(inputStream, titulo, descricao, option, nome, filePart.getSubmittedFileName());
+
+        }
         
-        
-        BD.MATERIAIS.incluir(inputStream, titulo, descricao, option, nome, filePart.getSubmittedFileName());
 //		BD.USUARIO_CURRICULUMS.incluir(email, assunto1, assunto2, descricao);
 		
 		response.sendRedirect("material_user.jsp");//fazer html para sucesso
