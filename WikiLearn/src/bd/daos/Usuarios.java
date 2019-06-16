@@ -144,7 +144,7 @@ public class Usuarios {
 
 
 	
-	 public void incluir (Usuario usuario) throws Exception
+	 public void incluir (Usuario usuario, int publica) throws Exception
 	    {
 	        if (usuario==null)
 	            throw new Exception ("Usuario nao fornecido");
@@ -152,13 +152,13 @@ public class Usuarios {
 	        try
 	        {
 			
-
+	        	
 	            String sql;
 
 	            sql = "INSERT INTO USUARIO " +
-	                  "(NOME,EMAIL,SENHA,DATA_NASCIMENTO, NICK) " +
+	                  "(NOME,EMAIL,SENHA,DATA_NASCIMENTO, NICK, PUBLICADOR) " +
 	                  "VALUES " +
-	                  "(?,?,?,?,?)";
+	                  "(?,?,?,?,?, ?)";
 	            
 	            
 	            this.log.printSql(sql);
@@ -170,7 +170,7 @@ public class Usuarios {
 	            BD.COMANDO.setString (3, usuario.getSenha ());
 	            BD.COMANDO.setString (4, usuario.getData_nascimento ());
 	            BD.COMANDO.setString (5, usuario.getNick());
-
+	            BD.COMANDO.setInt(6, publica);
 
 				
 

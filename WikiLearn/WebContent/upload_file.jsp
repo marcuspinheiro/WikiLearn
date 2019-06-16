@@ -159,7 +159,7 @@
 					<textarea name ="descricao" class="form-control" id="exampleFormControlTextarea1"
 						rows="3"></textarea>
 				</section>
-
+		<input type="hidden" id = "codigo" name="codigo" value="0">
 				<input type="hidden" name="acao" id ="acao" value="1">
 				<button class="btn btn-primary btn-lg btn-block col-md-3"
 					type="submit">Cadastrar</button>

@@ -42,6 +42,7 @@ public class Cadastro_usuario extends HttpServlet {
 			String assunto1 = request.getParameter("assunto1");
 			String assunto2 = request.getParameter("assunto2");
 			String descricao = request.getParameter("summary");
+			int publica = Integer.parseInt(request.getParameter("publica"));
 			
 
 			
@@ -54,11 +55,10 @@ public class Cadastro_usuario extends HttpServlet {
 			
 			System.out.println(l.toString());
 			
-			BD.USUARIOS.incluir(l);
-		
-//			BD.USUARIO_CURRICULUMS.incluir(email, assunto1, assunto2, descricao);
+			BD.USUARIOS.incluir(l, publica);
+			BD.USUARIO_CURRICULUMS.incluir(assunto1, assunto2, descricao, email);
 			
-			response.sendRedirect("sucesso.html");//fazer html para sucesso
+			response.sendRedirect("login.html");//fazer html para sucesso
 			
 			}	
 			

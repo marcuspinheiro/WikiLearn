@@ -13,6 +13,7 @@ public class BD
     public static final PostagemDAO POSTAGENS;
     public static final ComentarioDAO COMENTARIOS;
     public static final Avaliacao_materiais AVALIACAO_MATERIAIS;
+    public static final Usuario_curriculums USUARIO_CURRICULUMS;
     //b
 
 
@@ -26,6 +27,7 @@ public class BD
      	PostagemDAO postagens = null;
      	ComentarioDAO comentarios = null;
      	Avaliacao_materiais avaliacao_material = null;
+     	Usuario_curriculums usuario_curriculums = null;
 
     	try
         {
@@ -52,7 +54,7 @@ public class BD
             postagens = new PostagemDAO();
             comentarios = new ComentarioDAO();
             avaliacao_material = new Avaliacao_materiais();
-            
+            usuario_curriculums = new Usuario_curriculums();            
         }
         catch (Exception erro)
         {
@@ -68,6 +70,7 @@ public class BD
         POSTAGENS = postagens;
         COMENTARIOS = comentarios;
         AVALIACAO_MATERIAIS = avaliacao_material;
+        USUARIO_CURRICULUMS = usuario_curriculums;
     
     }
 }
