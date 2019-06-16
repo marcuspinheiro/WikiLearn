@@ -46,7 +46,32 @@ public class Sugestoes {
 	    }
 
 	
-	
+	    public MeuResultSet getSugestao() throws Exception
+	    {
+	        MeuResultSet resultado = null;
+
+	        try
+	        {
+	            String sql;
+
+	            sql = "SELECT SUGESTAO.TEMA_SUGESTAO, SUGESTAO.DESCRICAO, USUARIO.NICK " +
+	                  "FROM SUGESTAO " +
+	            	  "INNER JOIN USUARIO ON USUARIO.ID = SUGESTAO.USUARIO_ID " +
+	                  "WHERE MATERIAL.STATUS = 0";
+	            
+	            this.log.printSql(sql);
+
+	            BD.COMANDO.prepareStatement (sql);
+	            
+	            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao recuperar usuario");
+	        }
+
+	        return resultado;
+	    }
 	
 	
 }

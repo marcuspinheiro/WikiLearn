@@ -23,7 +23,7 @@
 		Usuario user = (Usuario) session.getAttribute("usuario");
 		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
 		MeuResultSet tema = BD.TEMAS.getTemas();
-
+		MeuResultSet tema2 = BD.TEMAS.getTemas();
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
 		session.setAttribute("usuario", user);
@@ -74,7 +74,7 @@
 					</a></li>
 					<!-- Caso o usuário seja admin -->
 					<% if (BD.USUARIOS.IsAdmin(user.getEmail())){ %>
-					<li class="nav-item active"><a class="nav-link" href="avaliar_sugestao.jsp">Formulário tema<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item active"><a class="nav-link" href="#">Formulário tema<span class="sr-only">(current)</span></a></li>
 					<%} %>
 					
 					<!-- Caso o usuário seja PUBLICADOR -->
@@ -107,83 +107,36 @@
 			</section>
 		</nav>
 
-
-		<!-- Carousel -->
-		<section id="carouselExampleControls" class="carousel slide my-4"
-			data-ride="carousel">
-			<section class="carousel-inner">
-				<section class="carousel-item active">
-					<img class="d-block img-fluid"
-						src="img/imagem1.jpg" alt="first_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem2.jpg" alt="second_slide">
-				</section>
-				<section class="carousel-item">
-					<img class="d-block img-fluid"
-						src="img/imagem3.jpg" alt="third_slide">
-				</section>
-			</section>
-			<a class="carousel-control-prev" href="#carouselExampleControls"
-				role="button" data-slide="prev"> <span
-				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-				class="sr-only">Previous</span>
-			</a> <a class="carousel-control-next" href="#carouselExampleControls"
-				role="button" data-slide="next"> <span
-				class="carousel-control-next-icon" aria-hidden="true"></span> <span
-				class="sr-only">Next</span>
-			</a>
+		
+		
+		
+		
+<h1 class="text-center">Temas</h1>
+		
+		
+		<section id="relatorio">
+		
+		<%
+			while (tema.next() && tema2.next()) {
+			 %>
+			 
+			<section class="shadow-sm p-3 mb-5 bg-white rounded">
+			<form class="temas" method = "get" action="material.jsp">
+				<h3><%=tema.getString("TEMA")%> </h3><input type="submit" value="Ver publicações">
+				<input type="hidden" name= "material" id ="material" value= "<%=tema2.getString("TEMA")%>">
+			</form>
+			 </section>
+		
+		<%
+			 	}
+			 %>
+</section>
+		
+		
+		
+		
+		
 		</section>
-
-		<!-- Cards -->
-
-		<section class="row">
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="http://via.placeholder.com/1920x700" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the
-							card title and make up the bulk of the card's content.</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</section>
-				</section>
-
-			</section>
-		</section>
-
-	</section>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
