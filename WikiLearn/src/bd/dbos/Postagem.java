@@ -147,7 +147,7 @@ public class Postagem {
 		if(this.isEncerrado())
 			return "Fechada";
 		else
-			return "Abertada";
+			return "Aberta";
 	}
 
 }
