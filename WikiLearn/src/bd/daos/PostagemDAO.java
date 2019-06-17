@@ -61,7 +61,7 @@ public class PostagemDAO {
 
 			String query;
 			
-			query = "SELECT p.id as idPostagem, u.id as idUser, datta, pergunta, email, nick FROM Postagem p "
+			query = "SELECT p.id as idPostagem, u.id as idUser, datta, pergunta, email, nick,encerrada FROM Postagem p "
 				 + " inner join usuario u on p.fk_usuario = u.id"
 				 + " order by datta desc; ";
 			BD.COMANDO.prepareStatement(query);
@@ -74,6 +74,7 @@ public class PostagemDAO {
 				objP.setIdPostagem(resultado.getInt("idPostagem"));
 				objP.setData(resultado.getTimestamp("datta"));
 				objP.setPergunta(resultado.getString("pergunta"));
+				objP.setEncerrado(resultado.getInt("encerrada") == 0 ? false : true);
 				user.setEmail(resultado.getString("email"));
 				user.setNick(resultado.getString("nick"));
 				user.setId(resultado.getInt("idUser"));
