@@ -55,12 +55,12 @@ public class Login extends HttpServlet {
 				
 				
 			}else {
-				response.sendRedirect("erro.html");
+				response.sendRedirect("login.html");
 			}
 			
 		}catch(Exception erro){
 			
-			response.sendRedirect("erro.html");//fazer html para erro
+			response.sendRedirect("login.html");//fazer html para erro
 			
 		}
 		

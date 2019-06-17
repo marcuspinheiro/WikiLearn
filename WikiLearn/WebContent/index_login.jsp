@@ -61,7 +61,7 @@
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
 							
 							<section class="dropdown-sectionider"></section>
-							<a class="dropdown-item" href="index.html">Sair</a>
+							<a class="dropdown-item" href="index3.html">Sair</a>
 						</section></li>
 
 					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
@@ -93,7 +93,7 @@
 					<%} %>
 					
 					<li class="nav-item active"><a class="nav-link"
-						href="forum_inicial.jsp">Forúm<span class="sr-only">(current)</span>
+						href="forum_inicial.jsp">Fórum<span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
 	
