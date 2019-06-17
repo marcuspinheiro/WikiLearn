@@ -126,7 +126,7 @@
 </h1>
 
 
-<h3>Autor: % <%=postagem.getDono().getNick()%> 
+<h3>Autor: <%=postagem.getDono().getNick()%> 
  	
 </h3>
 
