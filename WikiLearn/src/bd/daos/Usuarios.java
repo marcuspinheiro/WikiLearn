@@ -152,7 +152,7 @@ public class Usuarios {
 	        try
 	        {
 			
-	        	
+	        	System.out.println("Aquiii:  "+publica);
 	            String sql;
 
 	            sql = "INSERT INTO USUARIO " +

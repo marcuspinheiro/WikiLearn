@@ -38,8 +38,8 @@
 
 	<section class="container-fluid">
 		<!-- Menu -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-nav-color">
-			<a class="navbar-brand" href="#" style="color: black;">WikiLearn</a>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -52,22 +52,31 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false" style="color: black;"> Sobre </a>
+						aria-expanded="false"> Entrar </a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Equipe</a>
-							<a class="dropdown-item" href="#">Desenvolvdora</a>
-							<a class="dropdown-item" href="#">Localização</a>
-							<a class="dropdown-item" href="#">Termos legais</a>
+							<a class="dropdown-item" href="login.html">Login</a>
+							<section class="dropdown-divider"></section>
+							<a class="dropdown-item" href="cadastro_usuario.jsp">Cadastrar</a>
+							<section class="dropdown-sectionider"></section>
 						</section></li>
 						
-					<li class="nav-item active"><a class="nav-link" href="#" style="color: black;">Contato
+											<li class="nav-item active"><a class="nav-link"
+						href="lista_tema_sem_login.jsp">Temas<span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item active"><a class="nav-link" href="sobre.html">Contato
 							<span class="sr-only">(current)</span>
 					</a></li>
 
-					<li class="nav-item active"><a class="nav-link" href="#" style="color: black;">Features
+					<li class="nav-item active"><a class="nav-link" href="sobre.html">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
 				</ul>
+				
+				<form class="form-inline my-2 my-lg-0" method="get" action= "material_sem_login.jsp">
+					<input class="form-control mr-sm-2" type="search"
+						placeholder="Buscar Tema" aria-label="Search" name="material">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+				</form>
 			</section>
 		</nav>
 

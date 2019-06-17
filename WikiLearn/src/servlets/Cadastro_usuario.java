@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import bd.BD;
 import bd.dbos.Usuario;
 
@@ -47,32 +48,32 @@ public class Cadastro_usuario extends HttpServlet {
 			System.out.println("Teste aqui:" + publica);
 			
 			
+		
 			
 			if (BD.USUARIOS.cadastrado(email))
 			{
 				response.sendRedirect("erro.jsp");
 			}else {
 
-			Usuario l = new Usuario(nome, email, senha, data_nascimento, nick);
-			
-			System.out.println(l.toString());
-			
-			if (Integer.parseInt(publica) == 1) {
-				BD.USUARIOS.incluir(l, Integer.parseInt(publica));
-				BD.USUARIO_CURRICULUMS.incluir(assunto1, assunto2, descricao, email);
-			}else 
-			{
-				BD.USUARIOS.incluir(l, 0);
-				BD.USUARIO_CURRICULUMS.incluir(assunto1, assunto2, descricao, email);
-			}
-			
+						Usuario l = new Usuario(nome, email, senha, data_nascimento, nick);
+						
+						System.out.println(l.toString());
+						
+						if (Integer.parseInt(publica) == 1) {
+							BD.USUARIOS.incluir(l, Integer.parseInt(publica));
+							BD.USUARIO_CURRICULUMS.incluir(assunto1, assunto2, descricao, email);
+						}
+
+						
+						
 	
 			
-			response.sendRedirect("login.html");//fazer html para sucesso
+						response.sendRedirect("login.html");//fazer html para sucesso
 			
 			}	
 			
 		}catch(Exception erro){
+			
 			
 			response.sendRedirect("erro.html");//fazer html para erro
 			

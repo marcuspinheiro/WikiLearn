@@ -44,7 +44,7 @@ public class Avaliar_publicacao extends HttpServlet {
 			
 			BD.AVALIACAO_MATERIAIS.incluir(email, codigo, Integer.parseInt(nota));
 			
-			response.sendRedirect("sucesso.html");//fazer html para sucesso
+			response.sendRedirect("Obrigado_por_votar.jsp");//fazer html para sucesso
 			
 			
 			

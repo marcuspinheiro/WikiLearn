@@ -113,7 +113,7 @@
 		<!-- Upload file -->
 
 		<section class="col-md-8 order-md-1">
-			<h4 class="mb-3 text-center">Formuário para cadastro de usuário</h4>
+			<h4 class="mb-3 text-center">Formuário para cadastro de material</h4>
 
 
 
