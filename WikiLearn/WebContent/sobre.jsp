@@ -15,7 +15,26 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 
-<title>WIKI</title>
+<title>SOBRE | WIKI</title>
+<!-- Custom styles for this template -->
+<link href="sobre.css" rel="stylesheet">
+
+<style>
+	.bd-placeholder-img {
+	  font-size: 1.125rem;
+	  text-anchor: middle;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	}
+
+	@media (min-width: 768px) {
+	  .bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	  }
+	}
+  </style>
 </head>
 <body>
 	<!--DETECTA USUARIO LOGADO-->
@@ -81,7 +100,7 @@
 							<span class="sr-only">(current)</span>
 					</a></li>
 					<%} %>
-					<li class="nav-item active"><a class="nav-link" href="sobre.jsp">Sobre
+					<li class="nav-item active"><a class="nav-link" href="#">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
 					
@@ -105,94 +124,67 @@
 			</section>
 		</nav>
 
-
-		<!-- Carousel -->
-		<section class="bd-example mb-5">
-		  <section id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-		    <ol class="carousel-indicators">
-		      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-		      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-		      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-		    </ol>
-		    <section class="carousel-inner">
-		      <section class="carousel-item active">
-		        <img src="img/imagem3.jpg" class="d-block w-100" alt="...">
-		        <section class="carousel-caption d-none d-md-block">
-		          <h5 class="text-dark">O conteúdo em suas mãos</h5>
-		          <p class="text-dark">Uma forma moderna e fácil de compartilhar material.</p>
-		        </section>
-		      </section>
-		      <section class="carousel-item">
-		        <img src="img/imagem6.png" class="d-block w-100" alt="...">
-		        <section class="carousel-caption d-none d-md-block">
-		          <h5 class="text-dark">Segurança dos dados</h5>
-		          <p class="text-dark">Segurança garantida no compartilhamento de dados.</p>
-		        </section>
-		      </section>
-		      <section class="carousel-item">
-		        <img src="img/imagem5.png" class="d-block w-100" alt="..." href="sobre.html">
-		        <section class="carousel-caption d-none d-md-block">
-		          <h5 class="text-dark">Conheça a plataforma</h5>
-		          <p class="text-dark">Veja como obter um melhor uso da plataforma.</p>
-		        </section>
-		      </section>
-		    </section>
-		    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-		      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		      <span class="sr-only">Previous</span>
-		    </a>
-		    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-		      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		      <span class="sr-only">Next</span>
-		    </a>
-		  </section>
-		</section>
-
-		<!-- Cards -->
-
-		<section class="row">
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="img/imagem3.jpg" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">O conteúdo em suas mãos</h5>
-						<p class="card-text">Uma forma moderna e fácil de compartilhar material.</p>
-						<a href="sobre.html" class="btn btn-primary">Veja mais</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="img/imagem6.png" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Segurança dos dados</h5>
-						<p class="card-text">Segurança garantida no compartilhamento de dados.</p>
-						<a href="sobre.html" class="btn btn-primary">Veja mais</a>
-					</section>
-				</section>
-
-			</section>
-			<section class="col">
-
-				<section class="card" style="width: 18rem;">
-					<img class="d-block img-fluid"
-						src="img/imagem5.png" alt="first_slide">
-					<section class="card-body">
-						<h5 class="card-title">Conheça a plataforma</h5>
-						<p class="card-text">Veja como obter um melhor uso da plataforma.</p>
-						<a href="sobre.html" class="btn btn-primary">Veja mais</a>
-					</section>
-				</section>
-
-			</section>
-		</section>
-
-	</section>
+		
+		
+		
+		
+			<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-color">
+			<div class="wiki col-md-4 p-lg-4 my-4">
+				<img src="img/logo-transparent.png" class="image-logo" alt="">
+				<p class="lead font-weight-normal font-color">Uma plataforma de aprendizagem compartilhada, onde você pode aprender novos assuntos, tirar suas dúvidas e ajudar na criação e manutenção de conteúdos.</p>
+			  <a class="btn btn-outline-secondary btn-color" href="#">Em breve</a>
+			</div>
+			<div class="imagem-wiki shadow-sm d-none d-md-block"></div>
+			<!-- <div class="product-device shadow-sm d-none d-md-block"></div>
+			<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div> -->
+		  </div>
+		  
+		  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+			<div class="bg-topicos-color mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+			  <div class="my-3 py-3">
+				<h2 class="display-5">Tópicos preestabelecidos</h2>
+				<p class="lead">Pesquise e estude em cima de tópicos sobre assuntos de seu interesse.</p>
+			  </div>
+			  <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="img/topicos.png"></div>
+			</div>
+			<div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+			  <div class="my-3 p-3">
+				<h2 class="display-5">Crie novos conteúdos</h2>
+				<p class="lead">Sinta-se a vontade para criar um novo tópico ou assunto para um tópico já existente. </p>
+			  </div>
+			  <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="img/crie-novos.png"></div>
+			</div>
+		  </div>
+		  
+		  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+			<div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+			  <div class="my-3 p-3">
+				<h2 class="display-5">Tenha seus materiais de estudo a qualquer momento</h2>
+				<p class="lead">Nossa plataforma permite que você baixe seus documentos em formato de pdf, para que você possa acessá-los offline.</p>
+			  </div>
+			  <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="img/nuvem	.png"></div>
+			</div>
+			<div class="bg-nosso-forum-color mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+			  <div class="my-3 py-3">
+				<h2 class="display-5">Nosso fórum</h2>
+				<p class="lead">Cada tópico e assuntos desse tópico possui seu próprio espaço no nosso fórum para tornar possível que a nossa comunidade discuta sobre o assunto abordado.</p>
+			  </div>
+			  <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="img/nosso-forum.png" alt=""></div>
+			</div>
+		  </div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+</section>
 <footer class="container py-5">
 		<section class="row">
 			<section class="col-12 col-md">

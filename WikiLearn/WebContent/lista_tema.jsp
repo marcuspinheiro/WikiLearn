@@ -59,9 +59,7 @@
  %>
 					</a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="login.html">Meu Perfil</a>
-							<section class="dropdown-divider"></section>
-							<a class="dropdown-item" href="#">Upgrade de conta</a>
+							
 							<section class="dropdown-sectionider"></section>
 							<a class="dropdown-item" href="index.html">Sair</a>
 						</section></li>
@@ -74,7 +72,7 @@
 					</a></li>
 					<!-- Caso o usuário seja admin -->
 					<% if (BD.USUARIOS.IsAdmin(user.getEmail())){ %>
-					<li class="nav-item active"><a class="nav-link" href="#">Formulário tema<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item active"><a class="nav-link" href="avaliar_sugestao.jsp">Sugestões tema<span class="sr-only">(current)</span></a></li>
 					<%} %>
 					
 					<!-- Caso o usuário seja PUBLICADOR -->
@@ -83,14 +81,14 @@
 							<span class="sr-only">(current)</span>
 					</a></li>
 					<%} %>
-					<li class="nav-item active"><a class="nav-link" href="#">Sobre
+					<li class="nav-item active"><a class="nav-link" href="sobre.jsp">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
 					
 						<!-- Caso o usuário seja PUBLICADOR -->
 					<% if (BD.USUARIOS.IsPublicador(user.getEmail())){ %>
 					<li class="nav-item active"><a class="nav-link"
-						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
+						href="upload_file.jsp">Upload Material <span class="sr-only">(current)</span>
 					</a></li>
 					<%} %>
 					

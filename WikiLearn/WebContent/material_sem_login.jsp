@@ -37,7 +37,7 @@
 	<section class="container-fluid">
 			<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="#">WikiLearn</a>
+			<a class="navbar-brand" href="index3.html">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
