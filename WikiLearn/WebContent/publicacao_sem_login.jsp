@@ -20,10 +20,7 @@
 <body>
 	<!--DETECTA USUARIO LOGADO-->
 	<%
-		Usuario user = (Usuario) session.getAttribute("usuario");
-		MeuResultSet resultado = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		MeuResultSet resultado2 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
-		MeuResultSet resultado3 = BD.USUARIOS.getUsuarioLogado(user.getEmail());
+
 		MeuResultSet tema = BD.TEMAS.getTemas();
 		
 		String codigo = request.getParameter("codigo");
@@ -41,16 +38,12 @@
 		MeuResultSet edit_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
 		MeuResultSet delete_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
 		
-		MeuResultSet nota = BD.AVALIACAO_MATERIAIS.getNota(user.getEmail(), Integer.parseInt(codigo));
 		
 		MeuResultSet curriculo = BD.USUARIO_CURRICULUMS.getCurriculum(Integer.parseInt(codigo));
 		MeuResultSet tema1 = BD.USUARIO_CURRICULUMS.getCurriculumTema1 (Integer.parseInt(codigo));
 		MeuResultSet tema2 = BD.USUARIO_CURRICULUMS.getCurriculumTema2 (Integer.parseInt(codigo));
 		
 		
-		Usuario user_next = new Usuario(user.getEmail());
-		HttpSession session_next = request.getSession();
-		session.setAttribute("usuario", user);
 	%>
 
 
@@ -59,9 +52,9 @@
 	<!--DETECTA USUARIO LOGADO-->
 
 	<section class="container-fluid">
-			<!-- Menu -->
+		<!-- Menu -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			<a class="navbar-brand" href="index_login.jsp">WikiLearn</a>
+			<a class="navbar-brand" href="#">WikiLearn</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -70,58 +63,38 @@
 			</button>
 
 			<section class="collapse navbar-collapse" id="navbarSupportedContent">
-			
 				<ul class="navbar-nav mr-auto">
-					 <%
- 	while (resultado.next()) {%>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-  <%=resultado.getString("NICK")%><% 
- 	}
- %>
-					</a>
+						aria-expanded="false"> Entrar </a>
 						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="login.html">Meu Perfil</a>
+							<a class="dropdown-item" href="login.html">Login</a>
 							<section class="dropdown-divider"></section>
-							<a class="dropdown-item" href="#">Upgrade de conta</a>
+							<a class="dropdown-item" href="cadastro_usuario.jsp">Cadastrar</a>
 							<section class="dropdown-sectionider"></section>
-							<a class="dropdown-item" href="index.html">Sair</a>
 						</section></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Materiais </a>
-						<section class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<%
-					 	while (tema.next()) {
-					 		%><a class="dropdown-item" name="material" href="#"><% 
-					 %> <%=tema.getString("TEMA")%> 
-					 </a><% }
-					 %>
-							<section class="dropdown-sectionider"></section></li>
-					<li class="nav-item active"><a class="nav-link" href="sugerir_tema.jsp">Sugerir tema <span class="sr-only">(current)</span>
+						
+											<li class="nav-item active"><a class="nav-link"
+						href="lista_tema_sem_login.jsp">Temas<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"><a class="nav-link" href="#">Contato
+					<li class="nav-item active"><a class="nav-link" href="sobre.html">Contato
 							<span class="sr-only">(current)</span>
 					</a></li>
 
-					<li class="nav-item active"><a class="nav-link" href="#">Sobre
+					<li class="nav-item active"><a class="nav-link" href="sobre.html">Sobre
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="upload_file.jsp">Upload <span class="sr-only">(current)</span>
-					</a></li>
 				</ul>
-	
-				<form class="form-inline my-2 my-lg-0" method="get" action= "material.jsp">
+				
+				<form class="form-inline my-2 my-lg-0" method="get" action= "material_sem_login.jsp">
 					<input class="form-control mr-sm-2" type="search"
 						placeholder="Buscar Tema" aria-label="Search" name="material">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
 				</form>
 			</section>
 		</nav>
+
 
 
 
@@ -198,65 +171,7 @@
 			 <input type="submit" value="download">  
  </form>
  
- <%while(resultado3.next() && publicacao_codigo3.next()) {
 
- 
-	if (!BD.AVALIACAO_MATERIAIS.JaValidou(resultado3.getString("NICK"), Integer.parseInt(publicacao_codigo3.getString("ID")))) {%>
-		 <!-- Validar publicação -->
-			 <form class = "mb-5" method="get" action="Avaliar_publicacao">
-			 <%
-					 	while (publicacao_codigo2.next()) {
-					 %>  
-					 <input type="hidden" id = "codigo" name="codigo" value="<%=publicacao_codigo2.getString("ID")%>">
-					 <%
-					 	}
-					 %>
-					 
-				 <%
-					 	while (resultado2.next()) {
-					 %>  
-					 <input type="hidden" id = "nick" name="nick" value="<%=resultado2.getString("NICK")%>">
-					 <%
-					 	}
-					 %>	 
-			 <h4>Avaliar Publicação:</h4>
-				<section class="form-check form-check-inline">
-				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
-				  <label class="form-check-label" for="inlineRadio1">1</label>
-				</section>
-				<section class="form-check form-check-inline">
-				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-				  <label class="form-check-label" for="inlineRadio2">2</label>
-				</section>
-				<section class="form-check form-check-inline">
-				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-				  <label class="form-check-label" for="inlineRadio3">3</label>
-				</section>
-				<section class="form-check form-check-inline">
-				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
-				  <label class="form-check-label" for="inlineRadio4">4</label>
-				</section>
-				<section class="form-check form-check-inline">
-				  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
-				  <label class="form-check-label" for="inlineRadio5">5</label>
-				</section>
-				<br>
-				<br>
-				
-				<p><input type="submit" value="Enviar"> </p>
-			  </form>
-  <%} else {
-	  
-	  %>
-	  <h4>Avaliar Publicação:</h4>
-	  <label class="text-danger"> Você já votou. Você atribuiu nota  <% 	while (nota.next()) {
-			 %> <%=nota.getString("NOTA")%> <%
-			 	}
-			 %> para a esta publicação</label>
-  <% } %>
-  
- <% }%> 
-  
   
  <h4>Currículo do Propietário:</h4>
  			<section class="shadow-sm p-3 mb-5 bg-white rounded">
@@ -280,35 +195,7 @@
 			 </p>
 			</section>
  
- <% if (BD.MATERIAIS.IsPropietario(user.getEmail())){%>
- 
- 	<form class="mb-5" method="get" action="editar_postagem.jsp">
- 	<%
-					 	while (edit_codigo.next()) {
-					 %>  
-					 <input type="hidden" id = "codigo" name="codigo" value="<%=edit_codigo.getString("ID")%>">
-					 <%
-					 	}
-					 %>
- 		<input type="submit" value="Editar">
- 	</form>
- 	
- 	<form class="mb-5" method="get" action="deletar_postagem">
- 		
- 					 <%
-					 	while (delete_codigo.next()) {
-					 %>  
-					 <input type="hidden" id = "codigo" name="codigo" value="<%=delete_codigo.getString("ID")%>">
-					 <%
-					 	}
-					 %>
- 		
- 		<input type="submit" value="Deletar">
- 	</form>
- 
- 
- <%} %>
- 
+
 	</section>
 
 

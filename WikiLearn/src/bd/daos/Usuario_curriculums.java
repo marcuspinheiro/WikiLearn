@@ -54,7 +54,7 @@ public class Usuario_curriculums {
     }
 
 	
-	 public MeuResultSet getCurriculum (String email) throws Exception
+	 public MeuResultSet getCurriculum (int codigo) throws Exception
 	    {
 	        MeuResultSet resultado = null;
 
@@ -66,13 +66,14 @@ public class Usuario_curriculums {
 	            sql = "SELECT USUARIO_CURRICULUM.DESCRICAO, USUARIO.NICK  " +
 	                    "FROM USUARIO_CURRICULUM "
 	                    + "INNER JOIN USUARIO ON USUARIO.ID = USUARIO_CURRICULUM.USUARIO_ID "
-	                    + "WHERE USUARIO.EMAIL = ?";
+	                    + "INNER JOIN MATERIAL ON MATERIAL.USUARIO_ID = USUARIO.ID "
+	                    + "WHERE MATERIAL.ID = ?";
 	            
 	            this.log.printSql(sql);
 
 	            BD.COMANDO.prepareStatement (sql);
 	           
-	            BD.COMANDO.setString (1, email);
+	            BD.COMANDO.setInt (1, codigo);
 
 	            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
 	        }
@@ -86,7 +87,7 @@ public class Usuario_curriculums {
 	 
    
 	
-    public MeuResultSet getCurriculumTema1 (String email) throws Exception
+    public MeuResultSet getCurriculumTema1 (int codigo) throws Exception
     {
         MeuResultSet resultado = null;
 
@@ -97,12 +98,13 @@ public class Usuario_curriculums {
             sql = "SELECT TEMA .TEMA  " +
                   "FROM USUARIO_CURRICULUM "
                   + "INNER JOIN USUARIO ON USUARIO.ID = USUARIO_CURRICULUM.USUARIO_ID "
+                  + "INNER JOIN MATERIAL ON MATERIAL.USUARIO_ID = USUARIO.ID "
                   + "INNER JOIN TEMA ON TEMA.ID = USUARIO_CURRICULUM.ASSUNTO1 "
-                  + "WHERE USUARIO.EMAIL = ?";
+                  + "WHERE MATERIAL.ID = ?";
 
             BD.COMANDO.prepareStatement (sql);
             
-            BD.COMANDO.setString(1, email);
+            BD.COMANDO.setInt(1, codigo);
 
 
             resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
@@ -116,7 +118,7 @@ public class Usuario_curriculums {
     }
     
     
-    public MeuResultSet getCurriculumTema2 (String email) throws Exception
+    public MeuResultSet getCurriculumTema2 (int codigo) throws Exception
     {
         MeuResultSet resultado = null;
 
@@ -127,12 +129,13 @@ public class Usuario_curriculums {
             sql = "SELECT TEMA .TEMA "+
                   "FROM USUARIO_CURRICULUM "
                   + "INNER JOIN USUARIO ON USUARIO.ID = USUARIO_CURRICULUM.USUARIO_ID "
+                  + "INNER JOIN MATERIAL ON MATERIAL.USUARIO_ID = USUARIO.ID "
                   + "INNER JOIN TEMA ON TEMA.ID = USUARIO_CURRICULUM.ASSUNTO2 "
-                  + "WHERE USUARIO.EMAIL = ?";
-
+                  + "WHERE MATERIAL.ID = ?";
+            
             BD.COMANDO.prepareStatement (sql);
             
-            BD.COMANDO.setString(1, email);
+            BD.COMANDO.setInt(1, codigo);
 
 
             resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
