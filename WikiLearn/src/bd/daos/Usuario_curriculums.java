@@ -54,6 +54,95 @@ public class Usuario_curriculums {
     }
 
 	
+	 public MeuResultSet getCurriculum (String email) throws Exception
+	    {
+	        MeuResultSet resultado = null;
+
+	        try
+	        {
+	        	
+	            String sql;
+
+	            sql = "SELECT USUARIO_CURRICULUM.DESCRICAO, USUARIO.NICK  " +
+	                    "FROM USUARIO_CURRICULUM "
+	                    + "INNER JOIN USUARIO ON USUARIO.ID = USUARIO_CURRICULUM.USUARIO_ID "
+	                    + "WHERE USUARIO.EMAIL = ?";
+	            
+	            this.log.printSql(sql);
+
+	            BD.COMANDO.prepareStatement (sql);
+	           
+	            BD.COMANDO.setString (1, email);
+
+	            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+	        }
+	        catch (SQLException erro)
+	        {
+	            throw new Exception ("Erro ao recuperar usuario");
+	        }
+
+	        return resultado;
+	    }
+	 
+   
 	
+    public MeuResultSet getCurriculumTema1 (String email) throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT TEMA .TEMA  " +
+                  "FROM USUARIO_CURRICULUM "
+                  + "INNER JOIN USUARIO ON USUARIO.ID = USUARIO_CURRICULUM.USUARIO_ID "
+                  + "INNER JOIN TEMA ON TEMA.ID = USUARIO_CURRICULUM.ASSUNTO1 "
+                  + "WHERE USUARIO.EMAIL = ?";
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            BD.COMANDO.setString(1, email);
+
+
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar USUARIO");
+        }
+
+        return resultado;
+    }
+    
+    
+    public MeuResultSet getCurriculumTema2 (String email) throws Exception
+    {
+        MeuResultSet resultado = null;
+
+        try
+        {
+            String sql;
+
+            sql = "SELECT TEMA .TEMA "+
+                  "FROM USUARIO_CURRICULUM "
+                  + "INNER JOIN USUARIO ON USUARIO.ID = USUARIO_CURRICULUM.USUARIO_ID "
+                  + "INNER JOIN TEMA ON TEMA.ID = USUARIO_CURRICULUM.ASSUNTO2 "
+                  + "WHERE USUARIO.EMAIL = ?";
+
+            BD.COMANDO.prepareStatement (sql);
+            
+            BD.COMANDO.setString(1, email);
+
+
+            resultado = (MeuResultSet)BD.COMANDO.executeQuery ();
+        }
+        catch (SQLException erro)
+        {
+            throw new Exception ("Erro ao recuperar USUARIO");
+        }
+
+        return resultado;
+    }
 	
 }

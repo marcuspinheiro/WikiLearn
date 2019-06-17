@@ -32,7 +32,6 @@
 		MeuResultSet publicacao_data = BD.MATERIAIS.getPublicacao_data(codigo);
 		MeuResultSet publicacao_descricao = BD.MATERIAIS.getPublicacao_descricao(codigo);
 		MeuResultSet publicacao_avaliacao = BD.MATERIAIS.getPublicacao_avaliacao(codigo);
-		MeuResultSet publicacao_autor = BD.MATERIAIS.getPublicacao_autor(codigo);
 		MeuResultSet publicacao_tema = BD.MATERIAIS.getPublicacao_tema(codigo);
 		MeuResultSet publicacao_file_name =  BD.MATERIAIS.getPublicacao_file_name(codigo);
 		MeuResultSet publicacao_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
@@ -43,6 +42,11 @@
 		MeuResultSet delete_codigo =  BD.MATERIAIS.getPublicacao_codigo(codigo);
 		
 		MeuResultSet nota = BD.AVALIACAO_MATERIAIS.getNota(user.getEmail(), Integer.parseInt(codigo));
+		
+		MeuResultSet curriculo = BD.USUARIO_CURRICULUMS.getCurriculum(user.getEmail());
+		MeuResultSet tema1 = BD.USUARIO_CURRICULUMS.getCurriculumTema1 (user.getEmail());
+		MeuResultSet tema2 = BD.USUARIO_CURRICULUMS.getCurriculumTema2 (user.getEmail());
+		
 		
 		Usuario user_next = new Usuario(user.getEmail());
 		HttpSession session_next = request.getSession();
@@ -257,11 +261,27 @@
  <h4>Currículo do Propietário:</h4>
  			<section class="shadow-sm p-3 mb-5 bg-white rounded">
 				<p>Dono:<%
-			 	while (publicacao_autor.next()) {
-			 %> <%=publicacao_autor.getString("NICK")%> <%
+			 	while (curriculo.next()) {
+			 %> <%=curriculo.getString("NICK")%> <%
 			 	}
 			 %> </p>
-				<p>Currículo</p>
+				<p>Descrição autor:<%
+			 	while (curriculo.next()) {
+			 %> <%=curriculo.getString("DESCRICAO")%> <%
+			 	}
+			 %> </p>
+			 
+			 <p>Temas de preferência do autor: <%
+			 	while (tema1.next()) {
+			 %> <%=tema1.getString("TEMA")%> <%
+			 	}
+			 %> ,  
+			 	<% while (tema2.next()) {
+			 %> <%=tema2.getString("TEMA")%> <%
+			 	}
+			 %>
+			 
+			 </p>
 			</section>
  
  <% if (BD.MATERIAIS.IsPropietario(user.getEmail())){%>
